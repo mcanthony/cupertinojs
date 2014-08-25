@@ -136,9 +136,6 @@ reqest.send()
 The examples directory contains a iPhone app that runs in the simulator
 and comes complete with a UITableView implementation. 
 
-The test-js directory includes JS snippets
-
-
 ## State of union:
 
 Although the example app builds and runs in the simulator, Cupertino.js is not
@@ -146,13 +143,15 @@ yet production ready.
 
 There several features not yet implemented including:
 
-- Garbage collection: currently it uses retain/release/autorelease
-- Standard JS lib (Strings, arrays, etc)
-- Objective-C super
 - Switch statements
+- Unary Operations
 - JS modules
 - JS repl
+- Standard JS lib (Strings, arrays, etc)
+- Garbage collection: currently it uses retain/release/autorelease
+- Objective-C super
 - ECMA standard
+
 
 ## Project setup
 
@@ -164,12 +163,20 @@ Cupertino.js has the following dependencies:
 - Xcode
 - Foundation & the Objective-C runtime
 
-There is an install script which sets up the development environment
-
-### Script install
+The install script will set up the development environment
 
     ./bootstrap.sh
 
+## Installing the compiler
 
+Run the scheme ``cujs`` in release configuration
+
+The compiler ``cujs`` will be installed to /usr/local/bin
+
+## Running the example "Todoie"
+
+Once the compiler is installed, the example should run in the simulator.
+
+[For more check the Wiki](https://github.com/jerrymarino/cupertinojs/wiki)
 
 

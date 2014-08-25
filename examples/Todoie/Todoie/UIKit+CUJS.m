@@ -18,7 +18,7 @@
 + (int)applicationMain:(int)argc argV:(char *[])argv name:(NSString *)appDelegateName
 {
     @autoreleasepool {
-        UIApplicationMain(argc, argv, nil, name);
+        UIApplicationMain(argc, argv, nil, appDelegateName);
         return 0;
     }
 }

@@ -144,14 +144,15 @@ yet production ready.
 There several features not yet implemented including:
 
 - Switch statements
-- Unary Operations
-- JS modules
-- JS repl
-- Standard JS lib (Strings, arrays, etc)
-- Garbage collection: currently it uses retain/release/autorelease
+- Unary operators
+- Repl
+- Standard lib (Strings, arrays, etc)
+- Garbage collection: currently it uses manual retain/release/autorelease
 - Objective-C super
-- ECMA standard
+- [ECMAScript
+  5](http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf) compliance
 
+[Checkout the 0.1 Beta roadmap here](https://github.com/jerrymarino/cupertinojs/milestones)
 
 ## Project setup
 

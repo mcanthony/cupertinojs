@@ -1,12 +1,22 @@
+/*
+<expect>
+//FIXME: once worked
+this likely broken by the commit that
+'cleaned up after basic blocks'
+broken tests should not be added to repo bu this used to work
+so make the exception
+</expect>
+*/
+
 function testForBreak(){
     for (var i = 0; i < 10; i = i + 1){
         if (i == 5)
             break
         
-        NSLog("for: %@", i);
+        cujs_log("for: %@", i);
     }
 
-    NSLog("after: %@", i);
+    cujs_log("after: %@", i);
 }
 
 function testForContinue(){
@@ -14,10 +24,10 @@ function testForContinue(){
         if (i == 5)
             continue
         
-        NSLog("for: %@", i);
+        cujs_log("for: %@", i);
     }
 
-    NSLog("after: %@", i);
+    cujs_log("after: %@", i);
 }
 
 function testWhileBreak(){
@@ -27,10 +37,10 @@ function testWhileBreak(){
         if (j == 5)
             break
             
-        NSLog("do: %@", j);
+        cujs_log("do: %@", j);
     }
     
-    NSLog("after: %@", j);
+    cujs_log("after: %@", j);
 }
 
 function testWhileContinue(){
@@ -40,10 +50,10 @@ function testWhileContinue(){
         if (j == 5)
             continue
             
-        NSLog("while: %@", j);
+        cujs_log("while: %@", j);
     }
     
-    NSLog("after: %@", j);
+    cujs_log("after: %@", j);
 }
 
 function testDoWhileBreak(){
@@ -53,10 +63,10 @@ function testDoWhileBreak(){
         if (j == 5)
             continue
             
-        NSLog("while: %@", j);
+        cujs_log("while: %@", j);
     } while (j < 10)
     
-    NSLog("after: %@", j);
+    cujs_log("after: %@", j);
 }
 
 function testDoWhileContinue(){
@@ -66,22 +76,20 @@ function testDoWhileContinue(){
         if (j == 5)
             continue
             
-        NSLog("do: %@", j);
+        cujs_log("do: %@", j);
     } while (j < 10)
     
-    NSLog("after: %@", j);
+    cujs_log("after: %@", j);
 }
 
-function runtests(){
+function main(a, b){
     testForBreak()
     testForContinue()
     testDoWhileBreak()
     testDoWhileContinue()
     testWhileBreak()
     testWhileContinue()
-}
 
-function main(a, b){
-    runtests()
-    return 0
+    var zero = 0
+    return zero.intValue
 }

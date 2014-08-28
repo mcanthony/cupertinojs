@@ -1241,8 +1241,7 @@ extern void *objc_Struct(NSString *nameString, ...) {
 
 @implementation console : NSObject
 
-+ (void)log:(id)arg, ...
-{
++ (void)log:(id)arg, ... {
     NSMutableString *output = [NSMutableString string];
     va_list args;
     va_start(args, arg);
@@ -1250,9 +1249,21 @@ extern void *objc_Struct(NSString *nameString, ...) {
         [output appendString:[NSString stringWithFormat:@"%@", current]];
     }
     va_end(args);
-    
-    NSLog(@"%@", output);
+
+    [[NSFileHandle fileHandleWithStandardOutput] writeData:[output dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 @end
 
+void cujs_log(id arg, ...) {
+    va_list args;
+    va_start(args, arg);
+    NSString *formattedString = [[NSString alloc] initWithFormat:arg
+                                                       arguments:args];
+    va_end(args);
+
+    [[NSFileHandle fileHandleWithStandardOutput] writeData:[formattedString dataUsingEncoding:NSUTF8StringEncoding]];
+    [formattedString release];
+    
+    [[NSFileHandle fileHandleWithStandardOutput] writeData:[@"\n" dataUsingEncoding:NSUTF8StringEncoding]];
+}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0500"
+   LastUpgradeVersion = "0510"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,37 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C59DA7C319AC48C200E0BA27"
+               BuildableName = "cujs-compiler-integration-tests"
+               BlueprintName = "cujs-compiler-integration-tests"
+               ReferencedContainer = "container:cujs.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "C5F83B0A1969155100A381F3"
                BuildableName = "cujs"
                BlueprintName = "cujs"
+               ReferencedContainer = "container:cujs.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C5CFC3851997077C00D1ED51"
+               BuildableName = "libcujs-runtime.a"
+               BlueprintName = "cujs-runtime"
                ReferencedContainer = "container:cujs.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C5F83B0A1969155100A381F3"
-            BuildableName = "cujs"
-            BlueprintName = "cujs"
+            BlueprintIdentifier = "C59DA7C319AC48C200E0BA27"
+            BuildableName = "cujs-compiler-integration-tests"
+            BlueprintName = "cujs-compiler-integration-tests"
             ReferencedContainer = "container:cujs.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -51,59 +79,12 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C5F83B0A1969155100A381F3"
-            BuildableName = "cujs"
-            BlueprintName = "cujs"
+            BlueprintIdentifier = "C59DA7C319AC48C200E0BA27"
+            BuildableName = "cujs-compiler-integration-tests"
+            BlueprintName = "cujs-compiler-integration-tests"
             ReferencedContainer = "container:cujs.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-         <CommandLineArgument
-            argument = "${PROJECT_DIR}/test-js/_test.js"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "${PROJECT_DIR}/examples/Todoie/Todoie/todoie.js"
-            isEnabled = "NO">
-         </CommandLineArgument>
-      </CommandLineArguments>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "CUJS_ENV_BUILD_DIR"
-            value = "${PROJECT_DIR}/${BUILT_PRODUCTS_DIR}"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "CUJS_ENV_DEBUG_COMPILER"
-            value = "true"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "CUJS_ENV_RUNTIME"
-            value = "${PROJECT_DIR}/${BUILT_PRODUCTS_DIR}/cujs-runtime.dylib"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "CUJS_ENV_PROJECT_ROOT_DIR"
-            value = "${PROJECT_DIR}/test-js"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "CUJS_ENV_BUILD_DIR"
-            value = "${PROJECT_DIR}/examples/Todoie/build/Debug-iphonesimulator"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "CUJS_ENV_PROJECT_ROOT_DIR"
-            value = "${PROJECT_DIR}/examples/Todoie/Todoie"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "CUJS_ENV_MTRIPEL"
-            value = "-mtriple=i386-unknown-ios"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -116,9 +97,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C5F83B0A1969155100A381F3"
-            BuildableName = "cujs"
-            BlueprintName = "cujs"
+            BlueprintIdentifier = "C59DA7C319AC48C200E0BA27"
+            BuildableName = "cujs-compiler-integration-tests"
+            BlueprintName = "cujs-compiler-integration-tests"
             ReferencedContainer = "container:cujs.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

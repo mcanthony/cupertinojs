@@ -178,3 +178,6 @@ extern void *objc_Struct(NSString *nameString, ...);
 + (void)log:(id)arg, ...;
 
 @end
+
+// A log function without any chrome
+extern void cujs_log(id arg, ...);

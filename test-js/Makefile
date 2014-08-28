@@ -1,7 +1,7 @@
 ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 BUILD_DIR := /tmp/cujs-test
 
-SOURCES = test.js
+SOURCES = _test.js
 
 all: post-build
 

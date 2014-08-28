@@ -292,8 +292,14 @@ CGJSRuntime::CGJSRuntime(llvm::IRBuilder<> *builder,
                                  llvm::Module *module){
     _builder = builder;
     _module = module;
-   
+  
+    // User exposed builtins
+    ObjcNSLogPrototye(_module);
     _builtins.insert("NSLog");
+   
+    DefExternFucntion("cujs_log");
+    _builtins.insert("cujs_log");
+
     DefExternFucntion("objc_Struct");
     _builtins.insert("objc_Struct");
     
@@ -315,7 +321,6 @@ CGJSRuntime::CGJSRuntime(llvm::IRBuilder<> *builder,
     
     ObjcMsgSendFPret(_module);
     ObjcMallocPrototype(_module);
-    ObjcNSLogPrototye(_module);
 }
 
 llvm::Value *CGJSRuntime::newString(std::string string){

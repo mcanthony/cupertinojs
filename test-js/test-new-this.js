@@ -1,3 +1,9 @@
+/*
+<expect>
+final count: 3
+</expect>
+*/
+
 function Counter(init){
     this.value = init
     
@@ -9,14 +15,18 @@ function Counter(init){
     return this
 }
 
-function main(a, b){
+function testNewThis(){
     var c = new Counter(1)
     c.increment()
     c.increment()
-   
-    NSLog("retainCt %d", c.retainCount)
-    NSLog("final %@", c.value)
     
-    return 0
+    cujs_log("final count: %@", c.value)
+}
+
+function main(a, b){
+    testNewThis()
+   
+    var zero = 0
+    return zero.intValue
 }
 

@@ -23,6 +23,7 @@
 #include "cgclang.h"
 #include "cgjsmacrovisitor.h"
 #include "cujsutils.h"
+#include "cujsllvmutils.h"
 
 #define CGJSDEBUG 0
 #define ILOG(A, ...) if (CGJSDEBUG){ printf(A,##__VA_ARGS__), printf("\n");}
@@ -265,16 +266,8 @@ void CGJS::VisitDeclarations(ZoneList<Declaration*> *declarations){
 }
 
 void CGJS::VisitStatements(ZoneList<Statement*> *statements){
-    auto preBB = _builder->GetInsertBlock();
     for (int i = 0; i < statements->length(); i++) {
-        auto BB = _builder->GetInsertBlock();
         Visit(statements->at(i));
-        if (BB){
-            _builder->SetInsertPoint(BB);
-        } else {
-            if (preBB)
-                _builder->SetInsertPoint(preBB);
-        }
     }
 }
 
@@ -442,7 +435,7 @@ void CGJS::CGIfStatement(IfStatement *node, bool flag){
     // Codegen of 'Else' can change the current block
     elseBB = _builder->GetInsertBlock();
     if (!elseBB->getTerminator()) {
-            _builder->CreateBr(mergeBB);
+        _builder->CreateBr(mergeBB);
     }
     
     // Emit merge block.
@@ -654,123 +647,6 @@ void CGJS::VisitDebuggerStatement(DebuggerStatement *node) {
     UNIMPLEMENTED();
 }
 
-static void CleanupBasicBlock(BasicBlock *BB){
-    std::vector<llvm::BasicBlock *>removedSuccessorsOfMore;
-    
-    if(BB->getParent()){
-        TerminatorInst *BBTerm = BB->getTerminator();
-        // Loop through all of our successors and make sure they know that one
-        // of their predecessors is going away.
-        for (unsigned i = 0, e = BBTerm->getNumSuccessors(); i != e; ++i){
-            BBTerm->getSuccessor(i)->removePredecessor(BB);
-        }
-        
-        // Zap all the instructions in the block.
-        while (!BB->empty()) {
-            Instruction &I = BB->back();
-            // If this instruction is used, replace uses with an arbitrary value.
-            // Because control flow can't get here, we don't care what we replace the
-            // value with.  Note that since this block is unreachable, and all values
-            // contained within it must dominate their uses, that all uses will
-            // eventually be removed (they are themselves dead).
-            if (!I.use_empty())
-            I.replaceAllUsesWith(UndefValue::get(I.getType()));
-            BB->getInstList().pop_back();
-        }
-        
-        BB->removeFromParent();
-        BB->dropAllReferences();
-    }
-}
-
-static void CleanupInstructionsAfterBreaks(llvm::Function *function){
-    std::vector<llvm::BasicBlock *>removedSuccessorsOf;
-
-    for (llvm::Function::iterator BB = function->begin(), e = function->end(); BB != e; ++BB){
-        bool didBreak = false;
-        llvm::Instruction *breakInstruction;
-        for (llvm::BasicBlock::iterator BBInstruction = BB->begin(), BBInstructionsEnd = BB->end(); BBInstruction != BBInstructionsEnd; ++BBInstruction){
-            if (!didBreak &&
-                (llvm::ReturnInst::classof(BBInstruction) || llvm::BranchInst::classof(BBInstruction))){
-                didBreak = true;
-                breakInstruction = BBInstruction;
-            } else if (didBreak) {
-                //Remove all instructions after the first terminator
-                auto next = BBInstruction++;
-                llvm::Instruction *instruction = next;
-                while (instruction
-                       && instruction != BBInstructionsEnd
-                       && instruction != breakInstruction) {
-                    next = BBInstruction++;
-                    
-                    if (llvm::BranchInst::classof(instruction)) {
-                        //Keep track of all the successors we removed a reference to
-                        auto numSuccessors =  ((llvm::BranchInst *)instruction)->getNumSuccessors();
-                        for (unsigned i = 0; i < numSuccessors; i++){
-                            auto nestedBB = ((llvm::BranchInst *)instruction)->getSuccessor(i);
-                            removedSuccessorsOf.push_back(nestedBB);
-                        }
-                    }
-                  
-                    auto shouldDropAllReferences = instruction->getNumUses() == 1;
-                    instruction->removeFromParent();
-
-                    //If there is only 1 use the instruction can be nuked
-                    if (shouldDropAllReferences) {
-                        instruction->dropAllReferences();
-                    }
-                    
-                    instruction = next;
-                }
-                
-                break;
-            }
-        }
-    }
-   
-    for (unsigned i = 0; i < removedSuccessorsOf.size(); i++) {
-        auto BB = removedSuccessorsOf[i];
-        CleanupBasicBlock(BB);
-    }
-    
-    //Remove any dead blocks
-    for (llvm::Function::iterator BB = function->begin(), e = function->end(); BB && BB != e; ++BB){
-        if (BB->getName().startswith("entry")) {
-            continue;
-        }
-       
-        //FIXME : is there a better way to getNumPredecessors
-        int nPred = 0;
-        for (auto begin = pred_begin(BB), end = pred_end(BB); begin != end; ++begin) {
-            nPred++;
-        }
-        
-        if (!nPred) {
-            DeleteDeadBlock(BB);
-        }
-    }
-}
-
-// AddMissingTerminators - add missing terminators to all the basic blocks
-// in this function - terminators jump to the return
-static void AddMissingTerminators(llvm::Function *function){
-    for (llvm::Function::iterator BB = function->begin(), e = function->end(); BB != e; ++BB){
-        if (!BB->getTerminator() && BB->getParent()){
-            llvm::BasicBlock *jumpTarget = NULL;
-           
-            for (llvm::Function::iterator BBJ = function->end(), e = function->begin(); BBJ != e; --BBJ){
-                if (BBJ->getName().startswith(llvm::StringRef("return.set"))) {
-                    jumpTarget = BBJ;
-                    break;
-                }
-            }
-            
-            auto retJump = BranchInst::Create(jumpTarget);
-            BB->getInstList().push_back(retJump);
-        }
-    }
-}
-
 //Define the body of the function
 void CGJS::VisitFunctionLiteral(v8::internal::FunctionLiteral *node) {
     auto startIB = _builder->GetInsertBlock();
@@ -858,21 +734,15 @@ void CGJS::VisitFunctionLiteral(v8::internal::FunctionLiteral *node) {
     if (_context) {
         ILOG("Context size: %lu", _context->size());
     }
- 
-    llvm::BasicBlock *front = &function->front();
-    auto needsTerminator = !front->getTerminator();
-    if (needsTerminator) {
-        front->getInstList().push_back(llvm::BranchInst::Create(setRetBB));
-    }
 
     // LLVM needs to have terminators on every block (well formed)
     // Basic blocks must be well formed before the cleanup of instructions
-    AddMissingTerminators(function);
+    FunctionAddMissingTerminators(function);
     
     // This code will not be executed and llvm will throw
     // errors if it exists, in the best case it wouldn't be added
     // in the first place
-    CleanupInstructionsAfterBreaks(function);
+    FunctionCleanupInstructionsAfterTerminator(function);
 
     EndAccumulation();
     

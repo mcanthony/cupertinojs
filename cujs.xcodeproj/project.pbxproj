@@ -18,6 +18,11 @@
 		C56554D91997192D0003F873 /* cujs_runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CFC38C1997077C00D1ED51 /* cujs_runtime.m */; };
 		C56554DA1997194A0003F873 /* cujs_runtimeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CFC39E1997077C00D1ED51 /* cujs_runtimeTests.m */; };
 		C58503E819AED18B00C59C4E /* test-array-literals.js in Sources */ = {isa = PBXBuildFile; fileRef = C58503E719AED18B00C59C4E /* test-array-literals.js */; };
+		C58D9AF219B01BBF00F89CED /* test-for2.js in Sources */ = {isa = PBXBuildFile; fileRef = C58D9AF119B01BBF00F89CED /* test-for2.js */; };
+		C58D9AF419B01D0800F89CED /* test-while1.js in Sources */ = {isa = PBXBuildFile; fileRef = C58D9AF319B01D0800F89CED /* test-while1.js */; };
+		C58D9AF619B01D1E00F89CED /* test-while2.js in Sources */ = {isa = PBXBuildFile; fileRef = C58D9AF519B01D1E00F89CED /* test-while2.js */; };
+		C58D9AF819B01D2B00F89CED /* test-while3.js in Sources */ = {isa = PBXBuildFile; fileRef = C58D9AF719B01D2B00F89CED /* test-while3.js */; };
+		C58D9AFF19B0286900F89CED /* cujsllvmutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58D9AFD19B0286900F89CED /* cujsllvmutils.cpp */; };
 		C59DA7B419AB31AA00E0BA27 /* libicudata.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59DA7AD19AB31AA00E0BA27 /* libicudata.a */; };
 		C59DA7B519AB31AA00E0BA27 /* libicuuc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59DA7AE19AB31AA00E0BA27 /* libicuuc.a */; };
 		C59DA7B619AB31AA00E0BA27 /* libicui18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59DA7AF19AB31AA00E0BA27 /* libicui18n.a */; };
@@ -137,9 +142,19 @@
 		C58503DA19ADA97900C59C4E /* test-log.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-log.js"; sourceTree = "<group>"; };
 		C58503E619AECCA600C59C4E /* test-class-ref.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-class-ref.js"; sourceTree = "<group>"; };
 		C58503E719AED18B00C59C4E /* test-array-literals.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "test-array-literals.js"; sourceTree = "<group>"; };
-		C58503EA19AEE15200C59C4E /* Ftest-loop-breaks.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "Ftest-loop-breaks.js"; sourceTree = "<group>"; };
 		C58503EB19AEE1B800C59C4E /* Ftest-assign-op.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "Ftest-assign-op.js"; sourceTree = "<group>"; };
 		C58503EC19AEE32E00C59C4E /* test-objc-import.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-objc-import.js"; sourceTree = "<group>"; };
+		C58D9AEF19B01BA900F89CED /* test-for3.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-for3.js"; sourceTree = "<group>"; };
+		C58D9AF019B01BB600F89CED /* test-for1.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-for1.js"; sourceTree = "<group>"; };
+		C58D9AF119B01BBF00F89CED /* test-for2.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "test-for2.js"; sourceTree = "<group>"; };
+		C58D9AF319B01D0800F89CED /* test-while1.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "test-while1.js"; sourceTree = "<group>"; };
+		C58D9AF519B01D1E00F89CED /* test-while2.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "test-while2.js"; sourceTree = "<group>"; };
+		C58D9AF719B01D2B00F89CED /* test-while3.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "test-while3.js"; sourceTree = "<group>"; };
+		C58D9AF919B01D5300F89CED /* test-do-while1.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-do-while1.js"; sourceTree = "<group>"; };
+		C58D9AFA19B01D6100F89CED /* test-do-while2.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-do-while2.js"; sourceTree = "<group>"; };
+		C58D9AFB19B01D6900F89CED /* test-do-while3.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-do-while3.js"; sourceTree = "<group>"; };
+		C58D9AFD19B0286900F89CED /* cujsllvmutils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cujsllvmutils.cpp; sourceTree = "<group>"; };
+		C58D9AFE19B0286900F89CED /* cujsllvmutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cujsllvmutils.h; sourceTree = "<group>"; };
 		C59DA7AD19AB31AA00E0BA27 /* libicudata.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicudata.a; path = "deps/v8-trunk/xcodebuild/Release/libicudata.a"; sourceTree = "<group>"; };
 		C59DA7AE19AB31AA00E0BA27 /* libicuuc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicuuc.a; path = "deps/v8-trunk/xcodebuild/Release/libicuuc.a"; sourceTree = "<group>"; };
 		C59DA7AF19AB31AA00E0BA27 /* libicui18n.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicui18n.a; path = "deps/v8-trunk/xcodebuild/Release/libicui18n.a"; sourceTree = "<group>"; };
@@ -247,7 +262,6 @@
 			children = (
 				C51CE3161971BC4000996E03 /* _test.js */,
 				C58503EB19AEE1B800C59C4E /* Ftest-assign-op.js */,
-				C58503EA19AEE15200C59C4E /* Ftest-loop-breaks.js */,
 				C5F471EC198337D200F72FAA /* Makefile */,
 				C51CE3171971BC4000996E03 /* test-add.js */,
 				C58503E719AED18B00C59C4E /* test-array-literals.js */,
@@ -255,14 +269,23 @@
 				C58503E619AECCA600C59C4E /* test-class-ref.js */,
 				C504ECB91980CD4B00B2FE6C /* test-closures.js */,
 				C568622619763041001C8B45 /* test-conditional.js */,
+				C58D9AF919B01D5300F89CED /* test-do-while1.js */,
+				C58D9AFA19B01D6100F89CED /* test-do-while2.js */,
+				C58D9AFB19B01D6900F89CED /* test-do-while3.js */,
+				C58D9AF019B01BB600F89CED /* test-for1.js */,
+				C58D9AF119B01BBF00F89CED /* test-for2.js */,
+				C58D9AEF19B01BA900F89CED /* test-for3.js */,
 				C519D3DD1995E4210076D56A /* test-imports.h */,
 				C504ECBB1980CD4B00B2FE6C /* test-inc-dec.js */,
 				C58503DA19ADA97900C59C4E /* test-log.js */,
 				C504ECB81980CD4B00B2FE6C /* test-nested-func.js */,
 				C579D83C198DE88700544D8A /* test-new-this.js */,
+				C58503EC19AEE32E00C59C4E /* test-objc-import.js */,
 				C579D83E198DE88700544D8A /* test-object-literals.js */,
 				C545014E19A96B5F009F2008 /* test-return-cleanup.js */,
-				C58503EC19AEE32E00C59C4E /* test-objc-import.js */,
+				C58D9AF319B01D0800F89CED /* test-while1.js */,
+				C58D9AF519B01D1E00F89CED /* test-while2.js */,
+				C58D9AF719B01D2B00F89CED /* test-while3.js */,
 			);
 			path = "test-js";
 			sourceTree = "<group>";
@@ -432,6 +455,8 @@
 				C5D6F7EE19969601007E3ED3 /* cgjsruntime.cpp */,
 				C5D6F7EF19969601007E3ED3 /* cgjsruntime.h */,
 				C5D6F7F019969601007E3ED3 /* cgjs.cpp */,
+				C58D9AFD19B0286900F89CED /* cujsllvmutils.cpp */,
+				C58D9AFE19B0286900F89CED /* cujsllvmutils.h */,
 				C5D6F7F119969601007E3ED3 /* cgjs.h */,
 				C5D6F7F219969601007E3ED3 /* cgjsmacrovisitor.cpp */,
 				C5D6F7F319969601007E3ED3 /* cgjsmacrovisitor.h */,
@@ -688,13 +713,18 @@
 			files = (
 				C5D6F7FB19969601007E3ED3 /* cgclang.cpp in Sources */,
 				C5D6F7FF19969601007E3ED3 /* cujscompiler.cpp in Sources */,
+				C58D9AF619B01D1E00F89CED /* test-while2.js in Sources */,
 				C5D6F7FC19969601007E3ED3 /* cgjsruntime.cpp in Sources */,
 				C5D6F7FE19969601007E3ED3 /* cgjsmacrovisitor.cpp in Sources */,
 				C5A2163019AB1C6100C9BDC6 /* test-return-cleanup.js in Sources */,
 				C5D6F80119969601007E3ED3 /* main.cpp in Sources */,
 				C5D6F80019969601007E3ED3 /* cujsutils.cpp in Sources */,
 				C58503E819AED18B00C59C4E /* test-array-literals.js in Sources */,
+				C58D9AFF19B0286900F89CED /* cujsllvmutils.cpp in Sources */,
+				C58D9AF419B01D0800F89CED /* test-while1.js in Sources */,
 				C5D6F7FD19969601007E3ED3 /* cgjs.cpp in Sources */,
+				C58D9AF819B01D2B00F89CED /* test-while3.js in Sources */,
+				C58D9AF219B01BBF00F89CED /* test-for2.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

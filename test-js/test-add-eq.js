@@ -5,14 +5,14 @@
 </expect>
 */
 
-function testPlusEqual(){
+function testMinusEqual(){
     var a = 10
     var b = 42
     a -= b
     cujs_log("%@", a);
 }
 
-function testMinusEqual(){
+function testPlusEqual(){
     var a = 10
     var b = 42
     a += b
@@ -20,8 +20,8 @@ function testMinusEqual(){
 }
 
 function main(a, b){
-    testPlusEqual()
     testMinusEqual()
+    testPlusEqual()
    
     var zero = 0
     return zero.intValue

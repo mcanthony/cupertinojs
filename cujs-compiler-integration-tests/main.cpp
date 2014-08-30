@@ -81,7 +81,7 @@ class TestRun {
             std::cmatch endMatch;
             std::regex_search(endFile.c_str(),
                               endMatch,
-                              std::regex("(\\(|\\)|\\[|\\]|\\\"|\\.|:|\\d|\\w|\\s)*+\\<\\/expect"));
+                              std::regex("(-|\\(|\\)|\\[|\\]|\\\"|\\.|:|\\d|\\w|\\s)*+\\<\\/expect"));
             
             auto expectation = std::string(endMatch[0]);
             return expectation;

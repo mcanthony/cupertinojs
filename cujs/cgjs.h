@@ -47,20 +47,12 @@ namespace cujs{
         std::vector<CGContext *> _contexts;
         llvm::IRBuilder<> *_builder;
         llvm::Module *_module;
+        CGJSRuntime *_runtime;
         
         typedef void(*CallMacroFnPtr)(CGJS *CG, Call *node);
         std::map <std::string, CallMacroFnPtr> _macros;
-        
-        llvm::BasicBlock *_currentSetRetBlock;
-        std::map <Token::Value, std::string> assignOpSelectorByToken;
-        std::map <Token::Value, std::string> opSelectorByToken;
         std::map <int, std::string> _nameByFunctionID;
-
-
         std::map <llvm::Function *, llvm::BasicBlock *> returnBlockByFunction;
-        
-        CGJSRuntime *_runtime;
-        void *_macroVisitor;
         
         CGJS(std::string name,
                  CompilationInfoWithZone *info);

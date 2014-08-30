@@ -169,7 +169,6 @@ void CGJS::Codegen() {
     
     auto macroVisitor = cujs::CGJSMacroVisitor(this, zone());
     macroVisitor.Visit(_info->function());
-    _macros = macroVisitor._macros;   
 
     Visit(_info->function());
 }
@@ -354,10 +353,10 @@ void CGJS::VisitEmptyStatement(EmptyStatement *node) {
 }
 
 void CGJS::VisitIfStatement(IfStatement *node) {
-    CGIfStatement(node, true);
+    EmitIfStatement(node, true);
 }
 
-void CGJS::CGIfStatement(IfStatement *node, bool flag){
+void CGJS::EmitIfStatement(IfStatement *node, bool flag){
     Visit(node->condition());
     
     llvm::Value *condV = PopContext();
@@ -733,7 +732,7 @@ void CGJS::VisitConditional(Conditional *node) {
 }
 
 void CGJS::VisitLiteral(class Literal *node) {
-    CGLiteral(node->value(), true);
+    EmitLiteral(node->value(), true);
 }
 
 #pragma mark - Literals
@@ -756,7 +755,7 @@ std::string StringWithV8String(v8::internal::String *string) {
     return std::string(ascii);
 }
 
-llvm::Value *CGJS::CGLiteral(Handle<Object> value, bool push) {
+llvm::Value *CGJS::EmitLiteral(Handle<Object> value, bool push) {
     Object *object = *value;
     llvm::Value *lvalue = NULL;
     if (object->IsString()) {
@@ -1234,11 +1233,9 @@ void CGJS::VisitCall(Call *node) {
         VariableProxy *proxy = callee->AsVariableProxy();
         if (proxy) {
             name = stringFromV8AstRawString(proxy->raw_name());
-
-            // handle special case compile time magic
-            auto macro = _macros[name];
-            if (macro){
-                macro(this, node);
+            
+            //FIXME: this works but write a test
+            if (CGJSMacroVisitor::SymbolIsMacro(name)){
                 return;
             }
             

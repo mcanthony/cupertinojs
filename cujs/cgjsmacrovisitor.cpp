@@ -15,38 +15,32 @@
 using namespace v8::internal;
 using namespace cujs;
 
+bool CGJSMacroVisitor::SymbolIsMacro(std::string symbol){
+    return symbol == "objc_import";
+}
+
 #define CGJSDEBUG 0
 #define ILOG(A, ...) if (CGJSDEBUG){ printf(A,##__VA_ARGS__), printf("\n");}
 
-//TODO : move to runtime
-void MacroImportDeclareClasses(CGJS *CG, Call *node, ClangFile clangFile){
-    //Lookup the module init BB
-    CGJSRuntime *runtime = CG->_runtime;
-    //Declare classes as global variables in the init BB
+void DeclareClasses(CGJSRuntime *runtime, Call *node, ClangFile clangFile){
     for (auto it = clangFile._classes.begin(); it != clangFile._classes.end(); ++it){
         runtime->enterClass(*it);
     }
 }
 
-void MacroImportEnterStructs(CGJS *CG, Call *node, ClangFile clangFile){
-    //Lookup the module init BB
-    //Declare classes as global variables in the init BB
-    CGJSRuntime *runtime = CG->_runtime;
+void EnterStructs(CGJSRuntime *runtime, Call *node, ClangFile clangFile){
     for (auto it = clangFile._structs.begin(); it != clangFile._structs.end(); ++it){
         runtime->enterStruct(*it);
     }
 }
 
-void MacroImportEnterTypeDefs(CGJS *CG, Call *node, ClangFile clangFile){
-    //Lookup the module init BB
-    //Declare classes as global variables in the init BB
-    CGJSRuntime *runtime = CG->_runtime;
+void EnterTypeDefs(CGJSRuntime *runtime, Call *node, ClangFile clangFile){
     for (auto it = clangFile._typeDefs.begin(); it != clangFile._typeDefs.end(); ++it){
         runtime->enterTypeDef(*it);
     }
 }
 
-void MacroImport(CGJS *CG, Call *node){
+void CGJSMacroVisitor::Import(CGJS *CG, Call *node){
     ZoneList<Expression*>* args = node->arguments();
     auto argExpr = args->at(0);
     auto importPath = argExpr->AsLiteral()->raw_value()->AsString();
@@ -67,9 +61,9 @@ void MacroImport(CGJS *CG, Call *node){
     auto insertPt = builder->GetInsertBlock();
     builder->SetInsertPoint(moduleInitBB);
 
-    MacroImportEnterTypeDefs(CG, node, clangFile);
-    MacroImportDeclareClasses(CG, node, clangFile);
-    MacroImportEnterStructs(CG, node, clangFile);
+    EnterTypeDefs(CG->_runtime, node, clangFile);
+    DeclareClasses(CG->_runtime, node, clangFile);
+    EnterStructs(CG->_runtime, node, clangFile);
     
     //Restore insert point
     builder->SetInsertPoint(insertPt);
@@ -78,7 +72,7 @@ void MacroImport(CGJS *CG, Call *node){
 CGJSMacroVisitor::CGJSMacroVisitor(CGJS *CG, v8::internal::Zone *zone) {
     InitializeAstVisitor(zone);
     _cg = CG;
-    _macros["objc_import"] = MacroImport;
+    _macros["objc_import"] = Import;
 }
 
 void CGJSMacroVisitor::VisitDeclarations(ZoneList<Declaration*>* declarations){

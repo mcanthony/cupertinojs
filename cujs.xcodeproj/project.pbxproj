@@ -133,10 +133,11 @@
 		C579D820198D908500544D8A /* libLLVM-3.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libLLVM-3.4.dylib"; path = "../../../../usr/local/Cellar/llvm/3.4.2/lib/libLLVM-3.4.dylib"; sourceTree = "<group>"; };
 		C579D83C198DE88700544D8A /* test-new-this.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "test-new-this.js"; sourceTree = "<group>"; };
 		C579D83E198DE88700544D8A /* test-object-literals.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "test-object-literals.js"; sourceTree = "<group>"; };
+		C582B8D419B2602C00AAFB47 /* Ftest-ass-add-eq.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "Ftest-ass-add-eq.js"; sourceTree = "<group>"; };
 		C58503DA19ADA97900C59C4E /* test-log.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-log.js"; sourceTree = "<group>"; };
 		C58503E619AECCA600C59C4E /* test-class-ref.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-class-ref.js"; sourceTree = "<group>"; };
 		C58503E719AED18B00C59C4E /* test-array-literals.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "test-array-literals.js"; sourceTree = "<group>"; };
-		C58503EB19AEE1B800C59C4E /* Ftest-assign-op.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "Ftest-assign-op.js"; sourceTree = "<group>"; };
+		C58503EB19AEE1B800C59C4E /* test-add-eq.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-add-eq.js"; sourceTree = "<group>"; };
 		C58503EC19AEE32E00C59C4E /* test-objc-import.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-objc-import.js"; sourceTree = "<group>"; };
 		C58D9AEF19B01BA900F89CED /* test-for3.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-for3.js"; sourceTree = "<group>"; };
 		C58D9AF019B01BB600F89CED /* test-for1.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-for1.js"; sourceTree = "<group>"; };
@@ -255,7 +256,8 @@
 			isa = PBXGroup;
 			children = (
 				C51CE3161971BC4000996E03 /* _test.js */,
-				C58503EB19AEE1B800C59C4E /* Ftest-assign-op.js */,
+				C58503EB19AEE1B800C59C4E /* test-add-eq.js */,
+				C582B8D419B2602C00AAFB47 /* Ftest-ass-add-eq.js */,
 				C5F471EC198337D200F72FAA /* Makefile */,
 				C51CE3171971BC4000996E03 /* test-add.js */,
 				C58503E719AED18B00C59C4E /* test-array-literals.js */,

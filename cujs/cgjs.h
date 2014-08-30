@@ -40,32 +40,68 @@ namespace cujs{
    
     class CGJS: public  v8::internal::AstVisitor {
         CompilationInfoWithZone *_info;
-
-    public:
         std::string *_name;
-        CGContext *_context;
-        std::vector<CGContext *> _contexts;
+
         llvm::IRBuilder<> *_builder;
         llvm::Module *_module;
+
+        std::vector<CGContext *> _contexts;
+        CGContext *_context;
+        CGJSRuntime *_runtime;
         
-        typedef void(*CallMacroFnPtr)(CGJS *CG, Call *node);
-        std::map <std::string, CallMacroFnPtr> _macros;
-        
-        llvm::BasicBlock *_currentSetRetBlock;
-        std::map <Token::Value, std::string> assignOpSelectorByToken;
-        std::map <Token::Value, std::string> opSelectorByToken;
         std::map <int, std::string> _nameByFunctionID;
-
-
         std::map <llvm::Function *, llvm::BasicBlock *> returnBlockByFunction;
         
-        CGJSRuntime *_runtime;
-        void *_macroVisitor;
+        void EmitVariableAssignment(Variable* var,
+                                    Token::Value op) ;
+        void EmitFunctionPrototype(v8::internal::FunctionLiteral* node);
+        void EmitNamedPropertyAssignment(Property *property,
+                                         llvm::Value *value);
+        void EmitKeyedPropertyAssignment(llvm::Value *target,
+                                         llvm::Value *key,
+                                         llvm::Value *value);
+        void EmitPropertyCall(Expression *expr,
+                              ZoneList<Expression*>* args);
+        
+        void EmitVariableLoad(VariableProxy* proxy);
+        void EmitVariableStore(VariableProxy* proxy,
+                               llvm::Value *value);
+        void EmitBinaryOp(BinaryOperation* expr,
+                          Token::Value op);
+        void EmitLogicalAnd(BinaryOperation *expr);
+        void EmitLogicalOr(BinaryOperation *expr);
+        
+        void EmitStructLoadCall(Call* node);
+        void EmitStructLoadCast(std::string structName, llvm::CallInst *value);
+        llvm::Value *EmitLiteral(Handle<Object> value, bool push);
+        void EmitIfStatement(IfStatement *node, bool flag);
+        
+        void EnterContext();
+        void VisitStartAccumulation(AstNode *expr);
+        void VisitStartAccumulation(AstNode *expr, bool extendContext);
+        void EndAccumulation();
+       
+        void CreateArgumentAllocas(llvm::Function *F,
+                                   v8::internal::Scope* node);
+        void CreateJSArgumentAllocas(llvm::Function *F,
+                                     v8::internal::Scope* node);
+        
+        void PushValueToContext(llvm::Value *value);
+        llvm::Value *PopContext();
+        
+        bool SymbolIsClass(std::string symbol);
+        bool SymbolIsJSFunction(std::string symbol);
+        bool IsInGlobalScope();
+        
+        std::vector <llvm::Value *>makeArgs(ZoneList<Expression*>* args);
+    public:
+        friend CGJSMacroVisitor;
         
         CGJS(std::string name,
                  CompilationInfoWithZone *info);
-        
         ~CGJS();
+        
+        llvm::Module *module(){ return _module; };
         
         void Codegen();
         void Dump();
@@ -125,49 +161,6 @@ namespace cujs{
         void VisitComma(BinaryOperation* expr);
         void VisitLogicalExpression(BinaryOperation* expr);
         void VisitArithmeticExpression(BinaryOperation* expr);
-        
-        void EmitVariableAssignment(Variable* var,
-                                    Token::Value op) ;
-        
-        void EmitFunctionPrototype(v8::internal::FunctionLiteral* node);
-        void EmitNamedPropertyAssignment(Property *property, llvm::Value *value);
-        void EmitKeyedPropertyAssignment(llvm::Value *target, llvm::Value *key, llvm::Value *value);
-        void EmitPropertyCall(Expression *expr, ZoneList<Expression*>* args);
-        
-        void EmitVariableLoad(VariableProxy* proxy);
-        void EmitVariableStore(VariableProxy* proxy, llvm::Value *value);
-        void EmitBinaryOp(BinaryOperation* expr, Token::Value op);
-        void EmitLogicalAnd(BinaryOperation *expr);
-        void EmitLogicalOr(BinaryOperation *expr);
-        
-        void EmitStructLoadCall(Call* node);
-        void EmitStructLoadCast(std::string structName, llvm::CallInst *value);
-        
-        llvm::Value *CGLiteral( Handle<Object> value, bool push);
-        void CGIfStatement(IfStatement *node, bool flag);
-        
-        void EnterContext();
-        void VisitStartAccumulation(AstNode *expr);
-        void VisitStartAccumulation(AstNode *expr, bool extendContext);
-        
-        void EndAccumulation();
-        void VisitStartStackAccumulation(AstNode *expr);
-        void EndStackAccumulation();
-        void CreateArgumentAllocas(llvm::Function *F,
-                                   v8::internal::Scope* node);
-        void CreateJSArgumentAllocas(llvm::Function *F,
-                                     v8::internal::Scope* node);
-        
-        void PushValueToContext(llvm::Value *value);
-        llvm::Value *PopContext();
-        
-        bool SymbolIsClass(std::string symbol);
-        bool SymbolIsJSFunction(std::string symbol);
-        bool IsInGlobalScope();
-        
-        std::vector <llvm::Value *>makeArgs(ZoneList<Expression*>* args);
-        
-        friend CGJSMacroVisitor;
         
         DEFINE_AST_VISITOR_SUBCLASS_MEMBERS ();
     };

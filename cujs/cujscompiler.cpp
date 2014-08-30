@@ -184,14 +184,14 @@ std::string cujs::Compiler::compileModule(v8::Isolate *isolate, std::string file
         codegen.Dump();
     }
     
-    llvm::verifyModule(*codegen._module, llvm::PrintMessageAction);
+    llvm::verifyModule(*codegen.module(), llvm::PrintMessageAction);
     llvm::PassManager PM;
     std::string error;
     std::string out;
     
     llvm::raw_string_ostream file(out);
     PM.add(createPrintModulePass(&file));
-    PM.run(*codegen._module);
+    PM.run(*codegen.module());
     
     std::string outFileName = string_format("%s/%s.bc", buildDir.c_str(), moduleName.c_str());
     

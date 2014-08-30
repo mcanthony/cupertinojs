@@ -38,6 +38,7 @@ struct TestRunOptions {
     std::string testSourceDir;
     std::string cujsCompiler;
     std::string buildDir;
+    std::string focusedTest;
 };
 
 class TestRun {
@@ -80,7 +81,7 @@ class TestRun {
             std::cmatch endMatch;
             std::regex_search(endFile.c_str(),
                               endMatch,
-                              std::regex("(\\(|\\)|\\[|\\]|\\\"|\\.|:|\\d|\\w|\\s)*+\\<\\/expect"));
+                              std::regex("(-|\\(|\\)|\\[|\\]|\\\"|\\.|:|\\d|\\w|\\s)*+\\<\\/expect"));
             
             auto expectation = std::string(endMatch[0]);
             return expectation;
@@ -114,6 +115,33 @@ public:
     }
 };
 
+bool fileIsTest(std::string file){
+    return file.find("test") == 0 && file.find(".js") == file.length() - 3;
+}
+
+std::vector <std::string>testFilesForOptions(TestRunOptions options){
+    std::vector <std::string>tests;
+    if (options.focusedTest.length()) {
+        assert(fileIsTest(options.focusedTest) && "Invalid test");
+        tests.push_back(options.focusedTest);
+        return tests;
+    }
+    
+    DIR *sourceDir = opendir(options.testSourceDir.c_str());
+    assert(sourceDir && "Missing test directory");
+   
+    struct dirent *entry;
+    while ((entry = readdir(sourceDir))) {
+        std::string file = std::string(entry->d_name);
+        if (fileIsTest(file)) {
+            tests.push_back(file);
+        }
+    }
+    
+    closedir(sourceDir);  
+    return tests;
+}
+
 int main(int argc, const char * argv[])
 {
     //Run OSX integration tests
@@ -121,7 +149,8 @@ int main(int argc, const char * argv[])
     options.buildDir = "/tmp/cujs-integration-tests";
     options.testSourceDir = string_format("%s/test-js", PROJECT_DIR);
     options.cujsCompiler = "/usr/local/bin/cujs";
-   
+    options.focusedTest = get_env_var("CUJS_FOCUSED_TEST");
+    
     setenv("CUJS_ENV_RUNTIME", "/usr/local/lib/libcujs-runtime.a", 0);
     setenv("CUJS_ENV_CREATE_EXECUTABLE", "true", 0);
     setenv("CUJS_ENV_BUILD_DIR", options.buildDir.c_str(), 0);
@@ -131,30 +160,18 @@ int main(int argc, const char * argv[])
     std::cout << "Starting test run.. \n\n";
     
     exec(string_format("mkdir -p %s", options.buildDir.c_str()).c_str());
-
-    DIR *sourceDir = opendir(options.testSourceDir.c_str());
-    assert(sourceDir && "Missing test directory");
-   
-    auto testCount = 0;
- 
+  
+    auto testFiles = testFilesForOptions(options);
     std::vector<std::string>failedTests;
-    
-    struct dirent *entry;
-    while ((entry = readdir(sourceDir))) {
-        std::string file = std::string(entry->d_name);
-        auto fileIsTest = file.find("test") == 0 &&
-                          file.find(".js") == file.length() - 3;
-        if (fileIsTest) {
-            testCount++;
-            TestRun testRun(file, options);
-            bool status = testRun.run();
-            if (!status) {
-                failedTests.push_back(file);
-            }
+    auto testCount = testFiles.size();
+    for (unsigned i = 0; i < testCount; i++) {
+        auto testFile = testFiles[i];
+        TestRun testRun(testFile, options);
+        bool status = testRun.run();
+        if (!status) {
+            failedTests.push_back(testFile);
         }
     }
-    
-    closedir(sourceDir);
     
     std::cout << "\n\n--------------------------------\n";
     auto failedCount = failedTests.size();

@@ -13,6 +13,7 @@ namespace cujs {
     class CGJSMacroVisitor: public  v8::internal::AstVisitor {
         CGJS *_cg;
     public:
+        static bool SymbolIsMacro(std::string symbol);
         
         // Macros are references to native functions
         // which override javascript calls
@@ -80,6 +81,8 @@ namespace cujs {
         void VisitComma(BinaryOperation* expr);
         void VisitLogicalExpression(BinaryOperation* expr);
         void VisitArithmeticExpression(BinaryOperation* expr);
+        
+        static void Import(CGJS *CG, Call *node);
         
         DEFINE_AST_VISITOR_SUBCLASS_MEMBERS ();
     };

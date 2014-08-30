@@ -137,12 +137,12 @@ static std::string FUNCTION_THIS_ARG_NAME("this");
 static std::string DEFAULT_RET_ALLOCA_NAME("DEFAULT_RET_ALLOCA");
 static std::string SET_RET_ALLOCA_NAME("SET_RET_ALLOCA");
 
+
 #pragma mark - CGJS
 
 CGJS::CGJS(std::string name,
                    CompilationInfoWithZone *info)
 {
-
     _info = info;
     InitializeAstVisitor(info->zone());
     
@@ -152,34 +152,6 @@ CGJS::CGJS(std::string name,
     _module = new llvm::Module(name, Context);
     _context = NULL;
     _runtime = new CGJSRuntime(_builder, _module);
-    
-    assignOpSelectorByToken[Token::ASSIGN_ADD] = std::string("cujs_add:");
-    assignOpSelectorByToken[Token::ASSIGN_SUB] = std::string("cujs_subtract:");
-    assignOpSelectorByToken[Token::ASSIGN_MUL] = std::string("cujs_multiply:");
-    assignOpSelectorByToken[Token::ASSIGN_DIV] = std::string("cujs_divide:");
-    assignOpSelectorByToken[Token::ASSIGN_MOD] = std::string("cujs_mod:");
-    
-    assignOpSelectorByToken[Token::ASSIGN_BIT_OR] = std::string("cujs_bitor:");
-    assignOpSelectorByToken[Token::ASSIGN_BIT_XOR] = std::string("cujs_bitxor:");
-    assignOpSelectorByToken[Token::ASSIGN_BIT_AND] = std::string("cujs_bitand:");
-    
-    assignOpSelectorByToken[Token::ASSIGN_SHL] = std::string("cujs_shiftleft:");
-    assignOpSelectorByToken[Token::ASSIGN_SAR] = std::string("cujs_shiftright:");
-    assignOpSelectorByToken[Token::ASSIGN_SHR] = std::string("cujs_shiftrightright:");
-    
-    opSelectorByToken[Token::ADD] = std::string("cujs_add:");
-    opSelectorByToken[Token::SUB] = std::string("cujs_subtract:");
-    opSelectorByToken[Token::MUL] = std::string("cujs_multiply:");
-    opSelectorByToken[Token::DIV] = std::string("cujs_divide:");
-    opSelectorByToken[Token::MOD] = std::string("cujs_mod:");
-    
-    opSelectorByToken[Token::BIT_OR] = std::string("cujs_bitor:");
-    opSelectorByToken[Token::BIT_XOR] = std::string("cujs_bitxor:");
-    opSelectorByToken[Token::BIT_AND] = std::string("cujs_bitand:");
-    
-    opSelectorByToken[Token::SHL] = std::string("cujs_shiftleft:");
-    opSelectorByToken[Token::SAR] = std::string("cujs_shiftright:");
-    opSelectorByToken[Token::SHR] = std::string("cujs_shiftrightright:");
 }
 
 CGJS::~CGJS() {
@@ -197,7 +169,6 @@ void CGJS::Codegen() {
     
     auto macroVisitor = cujs::CGJSMacroVisitor(this, zone());
     macroVisitor.Visit(_info->function());
-    _macros = macroVisitor._macros;   
 
     Visit(_info->function());
 }
@@ -382,10 +353,10 @@ void CGJS::VisitEmptyStatement(EmptyStatement *node) {
 }
 
 void CGJS::VisitIfStatement(IfStatement *node) {
-    CGIfStatement(node, true);
+    EmitIfStatement(node, true);
 }
 
-void CGJS::CGIfStatement(IfStatement *node, bool flag){
+void CGJS::EmitIfStatement(IfStatement *node, bool flag){
     Visit(node->condition());
     
     llvm::Value *condV = PopContext();
@@ -761,7 +732,7 @@ void CGJS::VisitConditional(Conditional *node) {
 }
 
 void CGJS::VisitLiteral(class Literal *node) {
-    CGLiteral(node->value(), true);
+    EmitLiteral(node->value(), true);
 }
 
 #pragma mark - Literals
@@ -784,7 +755,7 @@ std::string StringWithV8String(v8::internal::String *string) {
     return std::string(ascii);
 }
 
-llvm::Value *CGJS::CGLiteral(Handle<Object> value, bool push) {
+llvm::Value *CGJS::EmitLiteral(Handle<Object> value, bool push) {
     Object *object = *value;
     llvm::Value *lvalue = NULL;
     if (object->IsString()) {
@@ -914,6 +885,27 @@ void CGJS::VisitVariableProxy(VariableProxy *node) {
     EmitVariableLoad(node);
 }
 
+static std::string AssignOpSelectorForToken(Token::Value token){
+    static std::map <Token::Value, std::string> assignOpSelectorByToken;
+    if (!assignOpSelectorByToken.size()) {
+        assignOpSelectorByToken[Token::ASSIGN_ADD] = "cujs_add:";
+        assignOpSelectorByToken[Token::ASSIGN_SUB] = "cujs_subtract:";
+        assignOpSelectorByToken[Token::ASSIGN_MUL] = "cujs_multiply:";
+        assignOpSelectorByToken[Token::ASSIGN_DIV] = "cujs_divide:";
+        assignOpSelectorByToken[Token::ASSIGN_MOD] = "cujs_mod:";
+        
+        assignOpSelectorByToken[Token::ASSIGN_BIT_OR] = "cujs_bitor:";
+        assignOpSelectorByToken[Token::ASSIGN_BIT_XOR] = "cujs_bitxor:";
+        assignOpSelectorByToken[Token::ASSIGN_BIT_AND] = "cujs_bitand:";
+        
+        assignOpSelectorByToken[Token::ASSIGN_SHL] = "cujs_shiftleft:";
+        assignOpSelectorByToken[Token::ASSIGN_SAR] = "cujs_shiftright:";
+        assignOpSelectorByToken[Token::ASSIGN_SHR] = "cujs_shiftrightright:";
+    }
+    
+    return assignOpSelectorByToken[token];
+}
+
 void CGJS::VisitAssignment(Assignment *node) {
     assert(node->target()->IsValidReferenceExpression());
     LhsKind assignType = GetLhsKind(node->target());
@@ -925,6 +917,7 @@ void CGJS::VisitAssignment(Assignment *node) {
     llvm::Value *value = PopContext();
     switch (assignType) {
         case VARIABLE: {
+            
             VariableProxy *targetProxy = (VariableProxy *)node->target();
             assert(targetProxy && "target for assignment required");
             assert(value && "missing value - not implemented");
@@ -934,17 +927,20 @@ void CGJS::VisitAssignment(Assignment *node) {
                 node->op() != Token::EQ &&
                 node->op() != Token::INIT_VAR){
                 EmitVariableLoad(targetProxy);
+           
                 auto target = PopContext();
-                auto selector = assignOpSelectorByToken[node->op()].c_str();
+                auto selector = AssignOpSelectorForToken(node->op()).c_str();
                 assert(selector && "unsupported assignment operation");
-                value = _runtime->messageSend(target, selector, value);
+                auto newValue = _runtime->messageSend(target, selector, value);
+                
+                EmitVariableStore(targetProxy, newValue);
+               
+                // An assign op needs to be pushed to context
+                // to support statements like var a = b += c
+                PushValueToContext(newValue);
+                break;
             }
             
-            if (node->op() == Token::INIT_VAR) {
-                //FIXME:
-                ILOG("INIT_VAR %s", targetName.c_str());
-            }
-
             EmitVariableStore(targetProxy, value);
             break;
         } case NAMED_PROPERTY: {
@@ -1237,11 +1233,9 @@ void CGJS::VisitCall(Call *node) {
         VariableProxy *proxy = callee->AsVariableProxy();
         if (proxy) {
             name = stringFromV8AstRawString(proxy->raw_name());
-
-            // handle special case compile time magic
-            auto macro = _macros[name];
-            if (macro){
-                macro(this, node);
+            
+            //FIXME: this works but write a test
+            if (CGJSMacroVisitor::SymbolIsMacro(name)){
                 return;
             }
             
@@ -1429,7 +1423,7 @@ void CGJS::VisitCountOperation(CountOperation *node) {
                 "cujs_increment" : "cujs_decrement";
 
   
-    llvm::AllocaInst *alloca;
+    llvm::AllocaInst *alloca = NULL;
     if (assignType == VARIABLE){
         VariableProxy *proxy =  node->expression()->AsVariableProxy();
         alloca = _context->valueForKey(stringFromV8AstRawString(proxy->raw_name()));
@@ -1443,6 +1437,7 @@ void CGJS::VisitCountOperation(CountOperation *node) {
     auto value = PopContext();
     
     if (node->is_prefix()) {
+        assert(alloca);
         auto result = _runtime->messageSend(value, assignOpSelector);
         _builder->CreateStore(result, alloca);
         
@@ -1548,6 +1543,27 @@ void CGJS::EmitLogicalOr(BinaryOperation *expr) {
     PushValueToContext(ph);
 }
 
+static std::string OpSelectorForToken(Token::Value token){
+    static std::map <Token::Value, std::string> opSelectorByToken;
+    if (!opSelectorByToken.size()) {
+        opSelectorByToken[Token::ADD] = "cujs_add:";
+        opSelectorByToken[Token::SUB] = "cujs_subtract:";
+        opSelectorByToken[Token::MUL] = "cujs_multiply:";
+        opSelectorByToken[Token::DIV] = "cujs_divide:";
+        opSelectorByToken[Token::MOD] = "cujs_mod:";
+        
+        opSelectorByToken[Token::BIT_OR] = "cujs_bitor:";
+        opSelectorByToken[Token::BIT_XOR] = "cujs_bitxor:";
+        opSelectorByToken[Token::BIT_AND] = "cujs_bitand:";
+        
+        opSelectorByToken[Token::SHL] = "cujs_shiftleft:";
+        opSelectorByToken[Token::SAR] = "cujs_shiftright:";
+        opSelectorByToken[Token::SHR] = "cujs_shiftrightright:";
+    }
+    
+    return opSelectorByToken[token];
+}
+
 void CGJS::VisitArithmeticExpression(BinaryOperation *expr) {
     Expression *left = expr->left();
     Expression *right = expr->right();
@@ -1564,7 +1580,7 @@ void CGJS::VisitArithmeticExpression(BinaryOperation *expr) {
     Args.push_back(lhs);
     Args.push_back(rhs);
     
-    auto selector = opSelectorByToken[expr->op()].c_str();
+    auto selector = OpSelectorForToken(expr->op()).c_str();
     assert(selector && "unsupported arithmatic operation");
    
     auto result = _runtime->messageSend(lhs, selector, rhs);

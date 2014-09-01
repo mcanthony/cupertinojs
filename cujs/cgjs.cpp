@@ -527,7 +527,7 @@ void CGJS::VisitWhileStatement(WhileStatement *node) {
     auto condVar = PopContext();
     _context->EmptyStack();
     
-    auto cond = _builder->CreateICmpEQ(condVar, ObjcNullPointer(), "loop.cond");
+    auto cond = _builder->CreateICmpEQ(_runtime->boolValue(condVar), ObjcNullPointer(), "loop.cond");
     _builder->CreateCondBr(cond, afterBB, loopBB);
     _builder->SetInsertPoint(loopBB);
     
@@ -554,7 +554,7 @@ void CGJS::VisitDoWhileStatement(DoWhileStatement *node) {
     auto condVar = PopContext();
     _context->EmptyStack();
 
-    auto endCond = _builder->CreateICmpEQ(condVar, ObjcNullPointer(), "loop.cond");
+    auto endCond = _builder->CreateICmpEQ(_runtime->boolValue(condVar), ObjcNullPointer(), "loop.cond");
     _builder->CreateCondBr(endCond, afterBB, loopBB);
    
     _builder->SetInsertPoint(afterBB);
@@ -581,7 +581,7 @@ void CGJS::VisitForStatement(ForStatement *node) {
     auto condVar = PopContext();
     _context->EmptyStack();
     
-    auto continueCond = _builder->CreateICmpEQ((condVar), ObjcNullPointer(), "loop.cond");
+    auto continueCond = _builder->CreateICmpEQ(_runtime->boolValue(condVar), ObjcNullPointer(), "loop.cond");
     _builder->CreateCondBr(continueCond, afterBB, loopBB);
     _builder->SetInsertPoint(loopBB);
 
@@ -1658,17 +1658,17 @@ void CGJS::VisitCompareOperation(CompareOperation *expr) {
     } else if (op == Token::IN) {
         UNIMPLEMENTED();
     } else if (op == Token::LT) {
-        resultValue = _runtime->messageSend(left, "isLessThan:",  right);
+        resultValue = _runtime->messageSend(left, "cujs_isLessThan:",  right);
     } else if (op == Token::GT){
-        resultValue = _runtime->messageSend(left, "isGreaterThan:",  right);
+        resultValue = _runtime->messageSend(left, "cujs_isGreaterThan:",  right);
     } else if (op == Token::LTE){
-        resultValue = _runtime->messageSend(left, "isLessThanOrEqualTo:",  right);
+        resultValue = _runtime->messageSend(left, "cujs_isLessThanOrEqualTo:",  right);
     } else if (op == Token::GTE){
-        resultValue = _runtime->messageSend(left, "isGreaterThanOrEqualTo:",  right);
+        resultValue = _runtime->messageSend(left, "cujs_isGreaterThanOrEqualTo:",  right);
     } else if (op == Token::EQ){
-        resultValue = _runtime->messageSend(left, "isEqual:", right);
+        resultValue = _runtime->messageSend(left, "cujs_isEqual:", right);
     } else if (op == Token::EQ_STRICT){
-        resultValue = _runtime->messageSend(left, "isEqual:", right);
+        resultValue = _runtime->messageSend(left, "cujs_isEqualStrict:", right);
     } else {
         UNIMPLEMENTED();
     }

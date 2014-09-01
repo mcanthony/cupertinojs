@@ -103,6 +103,13 @@ extern id cujs_GlobalScope;
 - cujs_increment;
 - cujs_decrement;
 
+- cujs_isLessThan:(id)value;
+- cujs_isLessThanOrEqualTo:(id)value;
+- cujs_isGreaterThan:(id)value;
+- cujs_isGreaterThanOrEqualTo:(id)value;
+- cujs_isEqual:(id)value;
+- cujs_isEqualStrict:(id)value;
+
 - (bool)cujs_boolValue;
 
 @end

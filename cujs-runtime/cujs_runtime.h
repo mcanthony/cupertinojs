@@ -110,6 +110,8 @@ extern id cujs_GlobalScope;
 - cujs_isEqual:(id)value;
 - cujs_isEqualStrict:(id)value;
 
+id cujs_not(id value);
+
 - (bool)cujs_boolValue;
 
 @end

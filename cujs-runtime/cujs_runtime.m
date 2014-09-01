@@ -759,6 +759,10 @@ DEF_CUJS_OPERATOR_RETURN_CLASS_OR_ZERO(cujs_shiftrightright:);
     return @([self isEqual:value]);
 }
 
+id cujs_not(id value) {
+    return @(![value cujs_boolValue]);
+}
+
 - (bool)cujs_boolValue {
     return true;
 }

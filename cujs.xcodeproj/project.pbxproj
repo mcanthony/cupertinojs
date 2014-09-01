@@ -135,6 +135,7 @@
 		C579D83E198DE88700544D8A /* test-object-literals.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "test-object-literals.js"; sourceTree = "<group>"; };
 		C582B8D419B2602C00AAFB47 /* test-assign-op.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-assign-op.js"; sourceTree = "<group>"; };
 		C582B8DC19B400BE00AAFB47 /* test-operators.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-operators.js"; sourceTree = "<group>"; };
+		C582B8E019B413D700AAFB47 /* test-unary.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-unary.js"; sourceTree = "<group>"; };
 		C58503DA19ADA97900C59C4E /* test-log.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-log.js"; sourceTree = "<group>"; };
 		C58503E619AECCA600C59C4E /* test-class-ref.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "test-class-ref.js"; sourceTree = "<group>"; };
 		C58503E719AED18B00C59C4E /* test-array-literals.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "test-array-literals.js"; sourceTree = "<group>"; };
@@ -279,6 +280,7 @@
 				C579D83C198DE88700544D8A /* test-new-this.js */,
 				C58503EC19AEE32E00C59C4E /* test-objc-import.js */,
 				C582B8DC19B400BE00AAFB47 /* test-operators.js */,
+				C582B8E019B413D700AAFB47 /* test-unary.js */,
 				C579D83E198DE88700544D8A /* test-object-literals.js */,
 				C545014E19A96B5F009F2008 /* test-return-cleanup.js */,
 				C58D9AF319B01D0800F89CED /* test-while1.js */,

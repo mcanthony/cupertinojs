@@ -527,7 +527,7 @@ void CGJS::VisitWhileStatement(WhileStatement *node) {
     auto condVar = PopContext();
     _context->EmptyStack();
     
-    auto cond = _builder->CreateICmpEQ(condVar, ObjcNullPointer(), "loop.cond");
+    auto cond = _builder->CreateICmpEQ(_runtime->boolValue(condVar), ObjcNullPointer(), "loop.cond");
     _builder->CreateCondBr(cond, afterBB, loopBB);
     _builder->SetInsertPoint(loopBB);
     
@@ -554,7 +554,7 @@ void CGJS::VisitDoWhileStatement(DoWhileStatement *node) {
     auto condVar = PopContext();
     _context->EmptyStack();
 
-    auto endCond = _builder->CreateICmpEQ(condVar, ObjcNullPointer(), "loop.cond");
+    auto endCond = _builder->CreateICmpEQ(_runtime->boolValue(condVar), ObjcNullPointer(), "loop.cond");
     _builder->CreateCondBr(endCond, afterBB, loopBB);
    
     _builder->SetInsertPoint(afterBB);
@@ -581,7 +581,7 @@ void CGJS::VisitForStatement(ForStatement *node) {
     auto condVar = PopContext();
     _context->EmptyStack();
     
-    auto continueCond = _builder->CreateICmpEQ((condVar), ObjcNullPointer(), "loop.cond");
+    auto continueCond = _builder->CreateICmpEQ(_runtime->boolValue(condVar), ObjcNullPointer(), "loop.cond");
     _builder->CreateCondBr(continueCond, afterBB, loopBB);
     _builder->SetInsertPoint(loopBB);
 
@@ -1059,7 +1059,6 @@ void CGJS::EmitVariableLoad(VariableProxy *node) {
     
     auto nestedVarAlloc = _context->lookup(_contexts, variableName);
     if (nestedVarAlloc) {
-        //NTS: always create an alloca for an arugment you want to pass to a function!!
         auto environmentVariableAlloca = _builder->CreateAlloca(ObjcPointerTy(), 0, "env_var_alloca");
         _builder->CreateStore(_runtime->newString(variableName), environmentVariableAlloca);
         auto keypathArgument = _builder->CreateLoad(environmentVariableAlloca);
@@ -1084,7 +1083,7 @@ void CGJS::EmitVariableLoad(VariableProxy *node) {
 }
 
 void CGJS::VisitYield(Yield *node) {
-    UNIMPLEMENTED(); //Deprecated
+    UNIMPLEMENTED();
 }
 
 void CGJS::VisitThrow(Throw *node) {
@@ -1405,7 +1404,20 @@ void CGJS::VisitCallRuntime(CallRuntime *node) {
 }
 
 void CGJS::VisitUnaryOperation(UnaryOperation *node) {
-    UNIMPLEMENTED();
+    Token::Value op = node->op();
+    if (op == Token::NOT) {
+        Visit(node->expression());
+        auto value = PopContext();
+        PushValueToContext(_builder->CreateCall(_module->getFunction("cujs_not"), value));
+    } else if (op == Token::TYPEOF){
+        UNIMPLEMENTED();
+    } else if (op == Token::DELETE){
+        UNIMPLEMENTED();
+    } else if (op == Token::VOID){
+        UNIMPLEMENTED();
+    } else {
+        UNIMPLEMENTED();
+    }
 }
 
 void CGJS::VisitCountOperation(CountOperation *node) {
@@ -1587,21 +1599,6 @@ void CGJS::VisitArithmeticExpression(BinaryOperation *expr) {
     PushValueToContext(result);
 }
 
-// Check for the form (%_ClassOf(foo) === 'BarClass').
-static bool IsClassOfTest(CompareOperation *expr) {
-    if (expr->op() != Token::EQ_STRICT) return false;
-    CallRuntime *call = expr->left()->AsCallRuntime();
-    if (call == NULL) return false;
-    Literal *literal = expr->right()->AsLiteral();
-    if (literal == NULL) return false;
-    if (!literal->value()->IsString()) return false;
-    if (!call->name()->IsOneByteEqualTo(STATIC_ASCII_VECTOR("_ClassOf"))) {
-        return false;
-    }
-    assert(call->arguments()->length() == 1);
-    return true;
-}
- 
 void CGJS::VisitCompareOperation(CompareOperation *expr) {
     assert(!HasStackOverflow());
     llvm::Value *resultValue = NULL;
@@ -1622,16 +1619,6 @@ void CGJS::VisitCompareOperation(CompareOperation *expr) {
     if (expr->IsLiteralCompareNull(&sub_expr)) {
         UNIMPLEMENTED();
     }
-    
-    if (IsClassOfTest(expr)) {
-        UNIMPLEMENTED();
-    }
-
-    
-//    if (IsLiteralCompareBool(isolate(), left, op, right)) {
-//    UNIMPLEMENTED();
-//    }
-
     
     Visit(expr->left());
     auto left = PopContext();
@@ -1658,17 +1645,17 @@ void CGJS::VisitCompareOperation(CompareOperation *expr) {
     } else if (op == Token::IN) {
         UNIMPLEMENTED();
     } else if (op == Token::LT) {
-        resultValue = _runtime->messageSend(left, "isLessThan:",  right);
+        resultValue = _runtime->messageSend(left, "cujs_isLessThan:",  right);
     } else if (op == Token::GT){
-        resultValue = _runtime->messageSend(left, "isGreaterThan:",  right);
+        resultValue = _runtime->messageSend(left, "cujs_isGreaterThan:",  right);
     } else if (op == Token::LTE){
-        resultValue = _runtime->messageSend(left, "isLessThanOrEqualTo:",  right);
+        resultValue = _runtime->messageSend(left, "cujs_isLessThanOrEqualTo:",  right);
     } else if (op == Token::GTE){
-        resultValue = _runtime->messageSend(left, "isGreaterThanOrEqualTo:",  right);
+        resultValue = _runtime->messageSend(left, "cujs_isGreaterThanOrEqualTo:",  right);
     } else if (op == Token::EQ){
-        resultValue = _runtime->messageSend(left, "isEqual:", right);
+        resultValue = _runtime->messageSend(left, "cujs_isEqual:", right);
     } else if (op == Token::EQ_STRICT){
-        resultValue = _runtime->messageSend(left, "isEqual:", right);
+        resultValue = _runtime->messageSend(left, "cujs_isEqualStrict:", right);
     } else {
         UNIMPLEMENTED();
     }

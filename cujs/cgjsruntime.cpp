@@ -300,6 +300,8 @@ CGJSRuntime::CGJSRuntime(llvm::IRBuilder<> *builder,
     DefExternFucntion("cujs_log");
     _builtins.insert("cujs_log");
 
+    DefExternFucntion("cujs_not");
+
     DefExternFucntion("objc_Struct");
     _builtins.insert("objc_Struct");
     

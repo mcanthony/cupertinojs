@@ -735,6 +735,34 @@ DEF_CUJS_OPERATOR_RETURN_CLASS_OR_ZERO(cujs_shiftrightright:);
     return cujs_NaN;
 }
 
+- cujs_isLessThan:(id)value {
+    return @([self isLessThan:value]);
+}
+
+- cujs_isLessThanOrEqualTo:(id)value {
+    return @([self isLessThanOrEqualTo:value]);
+}
+
+- cujs_isGreaterThan:(id)value {
+    return @([self isGreaterThan:value]);
+}
+
+- cujs_isGreaterThanOrEqualTo:(id)value {
+    return @([self isGreaterThanOrEqualTo:value]);
+}
+
+- cujs_isEqual:(id)value {
+    return @([self isEqual:value]);
+}
+
+- cujs_isEqualStrict:(id)value {
+    return @([self isEqual:value]);
+}
+
+id cujs_not(id value) {
+    return @(![value cujs_boolValue]);
+}
+
 - (bool)cujs_boolValue {
     return true;
 }

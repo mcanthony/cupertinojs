@@ -7,8 +7,26 @@
 //
 
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
-// Tests positive input.
-TEST(Fail, Positive) {
-  EXPECT_TRUE(false);
+#include "cgclang.h"
+
+using namespace cujs;
+
+TEST(TranslationUnitOptionsFilePathStartsAtRoot, Positive) {
+    setenv("CUJS_ENV_PROJECT_ROOT_DIR", "root", 0);
+    TranslationUnitOptions options = TranslationUnitOptions::OptionsWithFile("header.h");
+    EXPECT_EQ(options.file, "root/header.h");
+}
+
+TEST(TranslationUnitOptionsArgsContainsSDK, Positive){
+    setenv("SDKROOT", "/anSDK", 0);
+    TranslationUnitOptions options = TranslationUnitOptions::OptionsWithFile("header.h");
+    EXPECT_THAT(options.args, testing::Contains(testing::StrEq("-isysroot/anSDK")));
+}
+
+TEST(TranslationUnitOptionsArgsContainsArch, Positive){
+    setenv("ARCHS", "i386", 0);
+    TranslationUnitOptions options = TranslationUnitOptions::OptionsWithFile("header.h");
+    EXPECT_THAT(options.args, testing::Contains(testing::StrEq("i386")));
 }

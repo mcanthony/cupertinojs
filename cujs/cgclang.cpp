@@ -6,9 +6,11 @@
 //  Copyright (c) 2014 Jerry Marino. All rights reserved.
 //
 
+#include <clang-c/Index.h>
+
 #include "cujsutils.h"
 #include "cgclang.h"
-#include <clang-c/Index.h>
+#include "cujsenvironment.h"
 
 #define CGJSDEBUG 0
 #define ILOG(A, ...) if (CGJSDEBUG){ printf(A,##__VA_ARGS__), printf("\n");}
@@ -27,7 +29,54 @@ CXChildVisitResult cursorVisitor(CXCursor cursor, CXCursor parent, CXClientData 
 CXChildVisitResult functionDeclVisitor(CXCursor cursor, CXCursor parent, CXClientData client_data);
 CXChildVisitResult structDeclVisitor(CXCursor cursor, CXCursor parent, CXClientData client_data);
 
+//TODO: standardized with other env vars
 static std::string ENV_PROJECT_ROOT_DIR("CUJS_ENV_PROJECT_ROOT_DIR");
+
+std::string GetSDK(){
+    auto sdkEnv = get_env_var(COMPILE_ENV_SDKROOT);
+    if (!sdkEnv.length()) {
+        return "";
+    }
+    
+    return string_format("-isysroot%s", sdkEnv.c_str());
+}
+
+std::string GetArch(){
+    return get_env_var(COMPILE_ENV_ARCHS).c_str();
+}
+
+TranslationUnitOptions TranslationUnitOptions::OptionsWithFile(std::string name){
+    TranslationUnitOptions options;
+ 
+    std::vector<const char *>args;
+    
+    args.push_back("-I/usr/include");
+   
+    args.push_back("-I.");
+    args.push_back("-c");
+    args.push_back("-x");
+    args.push_back("objective-c");
+
+    args.push_back("-arch");
+    args.push_back("-m32");
+
+    auto arch = GetArch();
+    if (arch.size()) {
+        args.push_back(strdup(arch.data()));
+    }
+  
+    auto sdk = GetSDK();
+    if (sdk.length()) {
+        args.push_back(strdup(sdk.c_str()));
+    }
+    
+    std::string rootDir = get_env_var(ENV_PROJECT_ROOT_DIR);
+    options.file = string_format("%s/%s", rootDir.c_str(), name.c_str());
+    options.args = args;
+    
+    ILOG("Import file %s", options.file.c_str());
+    return options;
+}
 
 ClangFile::ClangFile(std::string name) {
     _name = name;
@@ -35,31 +84,8 @@ ClangFile::ClangFile(std::string name) {
     
     CXIndex index = clang_createIndex(0, 0);
 
-    const char *args[] = {
-        "-I/usr/include",
-        "-I.",
-        "-c",
-        "-x",
-        "objective-c",
-
-        "-arch",
-        "i386",
-
-        "-m32",
-        //Required for iOS/UIKit
-//        "-miphoneos-version-min=3.0",
-        "-mios-simulator-version-min=7.0",
-        "-isysroot/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk",
-        "-framework",
-        "UIKit",
-    };
-   
-    std::string rootDir = get_env_var(ENV_PROJECT_ROOT_DIR);
-    std::string file = string_format("%s/%s", rootDir.c_str(), name.c_str());
-    ILOG("Import file %s", file.c_str());
-
-    int numArgs = sizeof(args) / sizeof(*args);
-    CXTranslationUnit translationUnit = clang_parseTranslationUnit(index, file.c_str(), args, numArgs, NULL, 0, CXTranslationUnit_None);
+    TranslationUnitOptions options = TranslationUnitOptions::OptionsWithFile(name);
+    CXTranslationUnit translationUnit = clang_parseTranslationUnit(index, options.file.c_str(), &options.args[0], (int)options.args.size(), NULL, 0, CXTranslationUnit_None);
     CXCursor rootCursor = clang_getTranslationUnitCursor(translationUnit);
 
     clang_visitChildren(rootCursor, *cursorVisitor, this);
@@ -70,6 +96,8 @@ ClangFile::ClangFile(std::string name) {
 }
 
 ClangFile::~ClangFile() {}
+
+#pragma mark - Debug
 
 void printDiagnostics(CXTranslationUnit translationUnit){
     int nbDiag = clang_getNumDiagnostics(translationUnit);
@@ -125,7 +153,9 @@ void printCursorTokens(CXTranslationUnit translationUnit, CXCursor currentCursor
     clang_disposeTokens(translationUnit,tokens,nbTokens);
 }
 
+//TODO : remove this cruft!
 static CXType parentType;
+
 CXChildVisitResult cursorVisitor(CXCursor cursor, CXCursor parent, CXClientData client_data){
     CXCursorKind kind = clang_getCursorKind(cursor);
     CXString nameSpelling = clang_getCursorSpelling(cursor);
@@ -217,7 +247,6 @@ CXChildVisitResult functionDeclVisitor(CXCursor cursor, CXCursor parent, CXClien
     return CXChildVisit_Continue;
 }
 
-
 CXChildVisitResult structDeclVisitor(CXCursor cursor, CXCursor parent, CXClientData client_data) {
     CXCursorKind kind = clang_getCursorKind(cursor);
     CXType type = clang_getCursorType(cursor);
@@ -228,11 +257,6 @@ CXChildVisitResult structDeclVisitor(CXCursor cursor, CXCursor parent, CXClientD
         CXString name = clang_getCursorSpelling(cursor);
         field.name = clang_getCString(name);
         
-       
-        // FIXME: clang_Type_getOffsetOf is not working for 32bit
-        // according to the API the following should work:
-        // (clang_Type_getOffsetOf(parentType, clang_getCString(name)))
-        // for now manually compute the offset
         long long offset = file->_curentOffset;
         field.offset = offset;
         

@@ -29,6 +29,21 @@
 		C59DA7D319AC4A4600E0BA27 /* cujsutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7F719969601007E3ED3 /* cujsutils.cpp */; };
 		C5A2162E19AB12AF00C9BDC6 /* libclang.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A2162C19AB12AF00C9BDC6 /* libclang.dylib */; };
 		C5A2162F19AB12AF00C9BDC6 /* libLLVM-3.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A2162D19AB12AF00C9BDC6 /* libLLVM-3.4.dylib */; };
+		C5A48BF419B6B66A00C51DC1 /* cujscompiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7F519969601007E3ED3 /* cujscompiler.cpp */; };
+		C5A48BF819B6B6B500C51DC1 /* libicudata.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59DA7AD19AB31AA00E0BA27 /* libicudata.a */; };
+		C5A48BF919B6B6B500C51DC1 /* libicui18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59DA7AF19AB31AA00E0BA27 /* libicui18n.a */; };
+		C5A48BFA19B6B6B500C51DC1 /* libicuuc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59DA7AE19AB31AA00E0BA27 /* libicuuc.a */; };
+		C5A48BFB19B6B6B500C51DC1 /* libv8_base.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59DA7B319AB31AA00E0BA27 /* libv8_base.a */; };
+		C5A48BFC19B6B6B600C51DC1 /* libv8_libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59DA7B019AB31AA00E0BA27 /* libv8_libbase.a */; };
+		C5A48BFD19B6B6B600C51DC1 /* libv8_libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59DA7B119AB31AA00E0BA27 /* libv8_libplatform.a */; };
+		C5A48BFE19B6B6B600C51DC1 /* libv8_nosnapshot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59DA7B219AB31AA00E0BA27 /* libv8_nosnapshot.a */; };
+		C5A48BFF19B6B6CC00C51DC1 /* cgjsruntime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7EE19969601007E3ED3 /* cgjsruntime.cpp */; };
+		C5A48C0019B6B6CC00C51DC1 /* cgjs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7F019969601007E3ED3 /* cgjs.cpp */; };
+		C5A48C0119B6B6CC00C51DC1 /* cujsllvmutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58D9AFD19B0286900F89CED /* cujsllvmutils.cpp */; };
+		C5A48C0219B6B6CC00C51DC1 /* cgjsmacrovisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7F219969601007E3ED3 /* cgjsmacrovisitor.cpp */; };
+		C5A48C0519B6C22300C51DC1 /* cujsenvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5A48C0319B6C22300C51DC1 /* cujsenvironment.cpp */; };
+		C5A48C0619B6C22300C51DC1 /* cujsenvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5A48C0319B6C22300C51DC1 /* cujsenvironment.cpp */; };
+		C5B40B1219B6B390002DA11C /* test-compiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5B40B1019B6B390002DA11C /* test-compiler.cpp */; };
 		C5BFBEF019B5780800EDF6A5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BFBEEF19B5780800EDF6A5 /* main.cpp */; };
 		C5BFBEFE19B5818900EDF6A5 /* test-cgclang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BFBEFC19B5818900EDF6A5 /* test-cgclang.cpp */; };
 		C5CFC38D1997077C00D1ED51 /* cujs_runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CFC38C1997077C00D1ED51 /* cujs_runtime.m */; };
@@ -188,6 +203,9 @@
 		C59DA7C619AC48C200E0BA27 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C5A2162C19AB12AF00C9BDC6 /* libclang.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libclang.dylib; path = deps/llvm/lib/libclang.dylib; sourceTree = "<group>"; };
 		C5A2162D19AB12AF00C9BDC6 /* libLLVM-3.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libLLVM-3.4.dylib"; path = "deps/llvm/lib/libLLVM-3.4.dylib"; sourceTree = "<group>"; };
+		C5A48C0319B6C22300C51DC1 /* cujsenvironment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cujsenvironment.cpp; sourceTree = "<group>"; };
+		C5A48C0419B6C22300C51DC1 /* cujsenvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cujsenvironment.h; sourceTree = "<group>"; };
+		C5B40B1019B6B390002DA11C /* test-compiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "test-compiler.cpp"; sourceTree = "<group>"; };
 		C5BFBEED19B5780800EDF6A5 /* cujs-tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "cujs-tests"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5BFBEEF19B5780800EDF6A5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C5BFBEFA19B5807F00EDF6A5 /* gtest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gtest.framework; path = "../../../usr/local/lib/cujs-deps/gtest.framework"; sourceTree = "<group>"; };
@@ -255,6 +273,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5A48BF819B6B6B500C51DC1 /* libicudata.a in Frameworks */,
+				C5A48BF919B6B6B500C51DC1 /* libicui18n.a in Frameworks */,
+				C5A48BFA19B6B6B500C51DC1 /* libicuuc.a in Frameworks */,
+				C5A48BFB19B6B6B500C51DC1 /* libv8_base.a in Frameworks */,
+				C5A48BFC19B6B6B600C51DC1 /* libv8_libbase.a in Frameworks */,
+				C5A48BFD19B6B6B600C51DC1 /* libv8_libplatform.a in Frameworks */,
+				C5A48BFE19B6B6B600C51DC1 /* libv8_nosnapshot.a in Frameworks */,
 				C5DCC73719B59E6200AD4BA9 /* libclang.dylib in Frameworks */,
 				C5DCC73319B59DF500AD4BA9 /* libLLVM-3.4.dylib in Frameworks */,
 				C5DCC73819B5A00300AD4BA9 /* libstdc++.6.0.9.dylib in Frameworks */,
@@ -441,6 +466,7 @@
 			children = (
 				C5BFBEEF19B5780800EDF6A5 /* main.cpp */,
 				C5BFBEFC19B5818900EDF6A5 /* test-cgclang.cpp */,
+				C5B40B1019B6B390002DA11C /* test-compiler.cpp */,
 			);
 			path = "cujs-tests";
 			sourceTree = "<group>";
@@ -527,6 +553,8 @@
 				C5D6F7F319969601007E3ED3 /* cgjsmacrovisitor.h */,
 				C5D6F7F419969601007E3ED3 /* cujs.1 */,
 				C5D6F7F519969601007E3ED3 /* cujscompiler.cpp */,
+				C5A48C0319B6C22300C51DC1 /* cujsenvironment.cpp */,
+				C5A48C0419B6C22300C51DC1 /* cujsenvironment.h */,
 				C5D6F7F619969601007E3ED3 /* cujscompiler.h */,
 				C5D6F7F719969601007E3ED3 /* cujsutils.cpp */,
 				C5D6F7F819969601007E3ED3 /* cujsutils.h */,
@@ -796,10 +824,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5A48BFF19B6B6CC00C51DC1 /* cgjsruntime.cpp in Sources */,
+				C5A48C0019B6B6CC00C51DC1 /* cgjs.cpp in Sources */,
+				C5A48C0119B6B6CC00C51DC1 /* cujsllvmutils.cpp in Sources */,
+				C5A48C0219B6B6CC00C51DC1 /* cgjsmacrovisitor.cpp in Sources */,
+				C5A48C0619B6C22300C51DC1 /* cujsenvironment.cpp in Sources */,
+				C5A48BF419B6B66A00C51DC1 /* cujscompiler.cpp in Sources */,
 				C5DCC73119B59DC300AD4BA9 /* cujsutils.cpp in Sources */,
 				C5DCC72E19B59D9D00AD4BA9 /* cgclang.cpp in Sources */,
 				C5BFBEF019B5780800EDF6A5 /* main.cpp in Sources */,
 				C5BFBEFE19B5818900EDF6A5 /* test-cgclang.cpp in Sources */,
+				C5B40B1219B6B390002DA11C /* test-compiler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -824,6 +859,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5D6F7FB19969601007E3ED3 /* cgclang.cpp in Sources */,
+				C5A48C0519B6C22300C51DC1 /* cujsenvironment.cpp in Sources */,
 				C5D6F7FF19969601007E3ED3 /* cujscompiler.cpp in Sources */,
 				C5D6F7FC19969601007E3ED3 /* cgjsruntime.cpp in Sources */,
 				C5D6F7FE19969601007E3ED3 /* cgjsmacrovisitor.cpp in Sources */,
@@ -1003,6 +1039,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				GCC_C_LANGUAGE_STANDARD = ansi;
+				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					__STDC_CONSTANT_MACROS,
 					__STDC_LIMIT_MACROS,
@@ -1022,6 +1059,7 @@
 					/usr/local/lib,
 					"/usr/local/lib/cujs-deps",
 					/Users/jerrymarino/cupertinojs/deps/llvm/lib,
+					"/Users/jerrymarino/cupertinojs/deps/v8-trunk/xcodebuild/Release",
 				);
 				OTHER_CFLAGS = (
 					"-fno-strict-aliasing",
@@ -1052,6 +1090,7 @@
 				CLANG_CXX_LIBRARY = "compiler-default";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = ansi;
+				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					__STDC_CONSTANT_MACROS,
 					__STDC_LIMIT_MACROS,
@@ -1071,6 +1110,7 @@
 					/usr/local/lib,
 					"/usr/local/lib/cujs-deps",
 					/Users/jerrymarino/cupertinojs/deps/llvm/lib,
+					"/Users/jerrymarino/cupertinojs/deps/v8-trunk/xcodebuild/Release",
 				);
 				OTHER_CFLAGS = (
 					"-fno-strict-aliasing",

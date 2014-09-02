@@ -30,13 +30,6 @@
 			remoteGlobalIDString = C521AA7A1991E4B300948556;
 			remoteInfo = Todoie;
 		};
-		C52DC1C21996A8B9004E0BE8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C521AA731991E4B300948556 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C578A6E5199347CA0071F353;
-			remoteInfo = CompileJS;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -199,7 +192,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C52DC1C31996A8B9004E0BE8 /* PBXTargetDependency */,
 			);
 			name = Todoie;
 			productName = Todoie;
@@ -289,7 +281,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd $(dirname $(dirname ${PROJECT_DIR}))\n\n# Build the runtime\nxcodebuild -scheme cujs-runtime-ios -configuration \"Debug\" -sdk iphonesimulator\n\n\n";
+			shellScript = "cd $(dirname $(dirname ${PROJECT_DIR}))\n\n# Build the runtime\nxcodebuild -scheme cujs-runtime-ios -configuration \"Debug\" -sdk iphonesimulator\n\n# Build the JS\ncd ${PROJECT_DIR}\n\n# TODO: It seems cleaner to have 1 build script\n# as all the build settings are inherited\nmake\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -318,11 +310,6 @@
 			isa = PBXTargetDependency;
 			target = C521AA7A1991E4B300948556 /* Todoie */;
 			targetProxy = C521AA9B1991E4B300948556 /* PBXContainerItemProxy */;
-		};
-		C52DC1C31996A8B9004E0BE8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C578A6E5199347CA0071F353 /* CompileJS */;
-			targetProxy = C52DC1C21996A8B9004E0BE8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

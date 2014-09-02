@@ -27,6 +27,7 @@
 
 #include "cujsutils.h"
 #include "cgjs.h"
+#include "cujsenvironment.h"
 
 #include "cujscompiler.h"
 
@@ -35,12 +36,6 @@ using namespace cujs;
 
 const char *LLVM_DYLIB_PATH = "/usr/local/lib/cujs-deps";
 const char *LLVM_BIN_PATH = "/usr/local/bin/cujs-deps";
-
-const char *COMPILE_ENV_BUILD_DIR = "CUJS_ENV_BUILD_DIR";
-const char *COMPILE_ENV_CUJS_RUNTIME_PATH = "CUJS_ENV_RUNTIME";
-const char *COMPILE_ENV_DEBUG = "CUJS_ENV_DEBUG_COMPILER";
-const char *COMPILE_ENV_CREATE_EXECUTABLE = "CUJS_ENV_CREATE_EXECUTABLE";
-const char *COMPILE_ENV_MTRIPEL = "CUJS_ENV_MTRIPEL";
 
 #pragma mark - CompilerOptions
 
@@ -68,13 +63,30 @@ std::vector<std::string> ParseNames(int argc, const char * argv[]){
     return fnames;
 }
 
+std::string GetMTriple(){
+    auto explicitTriple = get_env_var(COMPILE_ENV_MTRIPEL);
+    if (explicitTriple.length()) {
+        return explicitTriple;
+    }
+   
+    auto platformName = get_env_var(COMPILE_ENV_PLATFORM_NAME);
+    auto archs = get_env_var(COMPILE_ENV_ARCHS);
+
+    if (archs.length() && platformName.length()) {
+        auto osName = CUJSIsIOS() ? "ios" : "osx";
+        return string_format("%s-apple-%s", archs.c_str(), osName);
+    }
+   
+    return "";
+}
+
 cujs::CompilerOptions::CompilerOptions(int argc, const char * argv[]){
     _names = ParseNames(argc, argv);
     _runtimePath = get_env_var(COMPILE_ENV_CUJS_RUNTIME_PATH);
     _buildDir = get_env_var(COMPILE_ENV_BUILD_DIR);
     _debug = get_env_var(COMPILE_ENV_DEBUG) == "true";
     _createExecutable = get_env_var(COMPILE_ENV_CREATE_EXECUTABLE) == "true";
-    _mTripel = get_env_var(COMPILE_ENV_MTRIPEL);
+    _mTripel = GetMTriple();
 }
 
 int cujs::CompilerOptions::validate(){

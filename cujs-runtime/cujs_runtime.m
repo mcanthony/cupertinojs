@@ -734,23 +734,29 @@ DEF_CUJS_OPERATOR_RETURN_CLASS_OR_ZERO(cujs_shiftrightright:);
 - cujs_decrement {
     return cujs_NaN;
 }
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-method-access"
 
 - cujs_isLessThan:(id)value {
-    return @([self isLessThan:value]);
+    return @((BOOL)[self isLessThan:value]);
 }
 
 - cujs_isLessThanOrEqualTo:(id)value {
-    return @([self isLessThanOrEqualTo:value]);
+    return @((BOOL)[self isLessThanOrEqualTo:value]);
 }
 
 - cujs_isGreaterThan:(id)value {
-    return @([self isGreaterThan:value]);
+    return @((BOOL)[self isGreaterThan:value]);
 }
 
 - cujs_isGreaterThanOrEqualTo:(id)value {
-    return @([self isGreaterThanOrEqualTo:value]);
+    return @((BOOL)[self isGreaterThanOrEqualTo:value]);
 }
+    
+#pragma clang diagnostic pop
 
+//FIXME:
 - cujs_isEqual:(id)value {
     return @([self isEqual:value]);
 }

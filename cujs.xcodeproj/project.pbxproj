@@ -29,6 +29,8 @@
 		C59DA7D319AC4A4600E0BA27 /* cujsutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7F719969601007E3ED3 /* cujsutils.cpp */; };
 		C5A2162E19AB12AF00C9BDC6 /* libclang.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A2162C19AB12AF00C9BDC6 /* libclang.dylib */; };
 		C5A2162F19AB12AF00C9BDC6 /* libLLVM-3.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A2162D19AB12AF00C9BDC6 /* libLLVM-3.4.dylib */; };
+		C5BFBEF019B5780800EDF6A5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BFBEEF19B5780800EDF6A5 /* main.cpp */; };
+		C5BFBEFE19B5818900EDF6A5 /* test-cgclang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BFBEFC19B5818900EDF6A5 /* test-cgclang.cpp */; };
 		C5CFC38D1997077C00D1ED51 /* cujs_runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CFC38C1997077C00D1ED51 /* cujs_runtime.m */; };
 		C5CFC3931997077C00D1ED51 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C568624A197637B0001C8B45 /* XCTest.framework */; };
 		C5CFC3941997077C00D1ED51 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5686239197637B0001C8B45 /* Cocoa.framework */; };
@@ -42,6 +44,8 @@
 		C5D6F7FF19969601007E3ED3 /* cujscompiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7F519969601007E3ED3 /* cujscompiler.cpp */; };
 		C5D6F80019969601007E3ED3 /* cujsutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7F719969601007E3ED3 /* cujsutils.cpp */; };
 		C5D6F80119969601007E3ED3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7F919969601007E3ED3 /* main.cpp */; };
+		C5DCC72C19B5941E00AD4BA9 /* libgmock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5DCC72A19B5941E00AD4BA9 /* libgmock.a */; };
+		C5DCC72D19B5941E00AD4BA9 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5DCC72B19B5941E00AD4BA9 /* libgtest.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +90,15 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C59DA7C219AC48C200E0BA27 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		C5BFBEEB19B5780800EDF6A5 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -163,6 +176,10 @@
 		C59DA7C619AC48C200E0BA27 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C5A2162C19AB12AF00C9BDC6 /* libclang.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libclang.dylib; path = deps/llvm/lib/libclang.dylib; sourceTree = "<group>"; };
 		C5A2162D19AB12AF00C9BDC6 /* libLLVM-3.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libLLVM-3.4.dylib"; path = "deps/llvm/lib/libLLVM-3.4.dylib"; sourceTree = "<group>"; };
+		C5BFBEED19B5780800EDF6A5 /* cujs-tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "cujs-tests"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5BFBEEF19B5780800EDF6A5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		C5BFBEFA19B5807F00EDF6A5 /* gtest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gtest.framework; path = "../../../usr/local/lib/cujs-deps/gtest.framework"; sourceTree = "<group>"; };
+		C5BFBEFC19B5818900EDF6A5 /* test-cgclang.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "test-cgclang.cpp"; sourceTree = "<group>"; };
 		C5CFC3861997077C00D1ED51 /* libcujs-runtime.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libcujs-runtime.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5CFC38A1997077C00D1ED51 /* cujs-runtime-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cujs-runtime-Prefix.pch"; sourceTree = "<group>"; };
 		C5CFC38B1997077C00D1ED51 /* cujs_runtime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cujs_runtime.h; sourceTree = "<group>"; };
@@ -185,6 +202,10 @@
 		C5D6F7F719969601007E3ED3 /* cujsutils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cujsutils.cpp; path = cujs/cujsutils.cpp; sourceTree = SOURCE_ROOT; };
 		C5D6F7F819969601007E3ED3 /* cujsutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cujsutils.h; path = cujs/cujsutils.h; sourceTree = SOURCE_ROOT; };
 		C5D6F7F919969601007E3ED3 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = cujs/main.cpp; sourceTree = SOURCE_ROOT; };
+		C5DCC72619B593A100AD4BA9 /* libgmock.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgmock.0.dylib; path = ../../../usr/local/lib/libgmock.0.dylib; sourceTree = "<group>"; };
+		C5DCC72719B593A100AD4BA9 /* libgtest.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgtest.0.dylib; path = ../../../usr/local/lib/libgtest.0.dylib; sourceTree = "<group>"; };
+		C5DCC72A19B5941E00AD4BA9 /* libgmock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgmock.a; path = ../../../usr/local/lib/libgmock.a; sourceTree = "<group>"; };
+		C5DCC72B19B5941E00AD4BA9 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = ../../../usr/local/lib/libgtest.a; sourceTree = "<group>"; };
 		C5F471EC198337D200F72FAA /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		C5F83B0B1969155100A381F3 /* cujs */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cujs; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -213,6 +234,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5BFBEEA19B5780800EDF6A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5DCC72C19B5941E00AD4BA9 /* libgmock.a in Frameworks */,
+				C5DCC72D19B5941E00AD4BA9 /* libgtest.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +373,11 @@
 		C5686238197637B0001C8B45 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5DCC72A19B5941E00AD4BA9 /* libgmock.a */,
+				C5DCC72B19B5941E00AD4BA9 /* libgtest.a */,
+				C5DCC72619B593A100AD4BA9 /* libgmock.0.dylib */,
+				C5DCC72719B593A100AD4BA9 /* libgtest.0.dylib */,
+				C5BFBEFA19B5807F00EDF6A5 /* gtest.framework */,
 				C59DA7AD19AB31AA00E0BA27 /* libicudata.a */,
 				C59DA7AE19AB31AA00E0BA27 /* libicuuc.a */,
 				C59DA7AF19AB31AA00E0BA27 /* libicui18n.a */,
@@ -380,6 +415,15 @@
 				C59DA7C619AC48C200E0BA27 /* main.cpp */,
 			);
 			path = "cujs-compiler-integration-tests";
+			sourceTree = "<group>";
+		};
+		C5BFBEEE19B5780800EDF6A5 /* cujs-tests */ = {
+			isa = PBXGroup;
+			children = (
+				C5BFBEEF19B5780800EDF6A5 /* main.cpp */,
+				C5BFBEFC19B5818900EDF6A5 /* test-cgclang.cpp */,
+			);
+			path = "cujs-tests";
 			sourceTree = "<group>";
 		};
 		C5CFC3881997077C00D1ED51 /* cujs-runtime */ = {
@@ -429,6 +473,7 @@
 				C534CD0C199718F2007BE0A5 /* cujs-runtime-ios */,
 				C534CD1E199718F2007BE0A5 /* cujs-runtime-iosTests */,
 				C59DA7C519AC48C200E0BA27 /* cujs-compiler-integration-tests */,
+				C5BFBEEE19B5780800EDF6A5 /* cujs-tests */,
 				C5686238197637B0001C8B45 /* Frameworks */,
 				C5F83B0C1969155100A381F3 /* Products */,
 			);
@@ -443,6 +488,7 @@
 				C534CD0A199718F2007BE0A5 /* libcujs-runtime-ios.a */,
 				C534CD17199718F2007BE0A5 /* cujs-runtime-iosTests.xctest */,
 				C59DA7C419AC48C200E0BA27 /* cujs-compiler-integration-tests */,
+				C5BFBEED19B5780800EDF6A5 /* cujs-tests */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -535,6 +581,24 @@
 			productReference = C59DA7C419AC48C200E0BA27 /* cujs-compiler-integration-tests */;
 			productType = "com.apple.product-type.tool";
 		};
+		C5BFBEEC19B5780800EDF6A5 /* cujs-tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C5BFBEF819B5780800EDF6A5 /* Build configuration list for PBXNativeTarget "cujs-tests" */;
+			buildPhases = (
+				C5BFBEF919B57B8100EDF6A5 /* ShellScript */,
+				C5BFBEE919B5780800EDF6A5 /* Sources */,
+				C5BFBEEA19B5780800EDF6A5 /* Frameworks */,
+				C5BFBEEB19B5780800EDF6A5 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "cujs-tests";
+			productName = "cujs-tests";
+			productReference = C5BFBEED19B5780800EDF6A5 /* cujs-tests */;
+			productType = "com.apple.product-type.tool";
+		};
 		C5CFC3851997077C00D1ED51 /* cujs-runtime */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C5CFC3A01997077C00D1ED51 /* Build configuration list for PBXNativeTarget "cujs-runtime" */;
@@ -625,6 +689,7 @@
 				C534CD09199718F2007BE0A5 /* cujs-runtime-ios */,
 				C534CD16199718F2007BE0A5 /* cujs-runtime-iosTests */,
 				C59DA7C319AC48C200E0BA27 /* cujs-compiler-integration-tests */,
+				C5BFBEEC19B5780800EDF6A5 /* cujs-tests */,
 			);
 		};
 /* End PBXProject section */
@@ -665,6 +730,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C5BFBEF919B57B8100EDF6A5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#$PROJECT_DIR/cujs-tests/install-gtest-if-necessary.sh";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C534CD06199718F2007BE0A5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -688,6 +769,15 @@
 			files = (
 				C59DA7D319AC4A4600E0BA27 /* cujsutils.cpp in Sources */,
 				C59DA7C719AC48C200E0BA27 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5BFBEE919B5780800EDF6A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5BFBEF019B5780800EDF6A5 /* main.cpp in Sources */,
+				C5BFBEFE19B5818900EDF6A5 /* test-cgclang.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -876,6 +966,65 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				COPY_PHASE_STRIP = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "PROJECT_DIR=\\\"\"$PROJECT_DIR\"\\\"";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		C5BFBEF319B5780800EDF6A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				OTHER_CFLAGS = (
+					"-fno-strict-aliasing",
+					"-fno-exceptions",
+					"-isystem",
+					"$(SRCROOT)/deps/llvm/include",
+					"-isystem",
+					"$(SRCROOT)/deps/v8-trunk",
+					"-isystem",
+					"$(SRCROOT)/deps/v8-trunk/third_party/icu/source/common",
+					"-isystem",
+					"$(SRCROOT)/deps/v8-trunk/include",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C5BFBEF419B5780800EDF6A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				COPY_PHASE_STRIP = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				OTHER_CFLAGS = (
+					"-fno-strict-aliasing",
+					"-fno-exceptions",
+					"-isystem",
+					"$(SRCROOT)/deps/llvm/include",
+					"-isystem",
+					"$(SRCROOT)/deps/v8-trunk",
+					"-isystem",
+					"$(SRCROOT)/deps/v8-trunk/third_party/icu/source/common",
+					"-isystem",
+					"$(SRCROOT)/deps/v8-trunk/include",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -1182,6 +1331,15 @@
 			buildConfigurations = (
 				C59DA7CA19AC48C200E0BA27 /* Debug */,
 				C59DA7CB19AC48C200E0BA27 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C5BFBEF819B5780800EDF6A5 /* Build configuration list for PBXNativeTarget "cujs-tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5BFBEF319B5780800EDF6A5 /* Debug */,
+				C5BFBEF419B5780800EDF6A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

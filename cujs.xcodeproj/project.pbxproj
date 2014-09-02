@@ -46,6 +46,11 @@
 		C5D6F80119969601007E3ED3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7F919969601007E3ED3 /* main.cpp */; };
 		C5DCC72C19B5941E00AD4BA9 /* libgmock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5DCC72A19B5941E00AD4BA9 /* libgmock.a */; };
 		C5DCC72D19B5941E00AD4BA9 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5DCC72B19B5941E00AD4BA9 /* libgtest.a */; };
+		C5DCC72E19B59D9D00AD4BA9 /* cgclang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7EC19969601007E3ED3 /* cgclang.cpp */; };
+		C5DCC73119B59DC300AD4BA9 /* cujsutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7F719969601007E3ED3 /* cujsutils.cpp */; };
+		C5DCC73319B59DF500AD4BA9 /* libLLVM-3.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5DCC73219B59DF500AD4BA9 /* libLLVM-3.4.dylib */; };
+		C5DCC73719B59E6200AD4BA9 /* libclang.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A2162C19AB12AF00C9BDC6 /* libclang.dylib */; };
+		C5DCC73819B5A00300AD4BA9 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C51CBC44196A815A0095CD4E /* libstdc++.6.0.9.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +81,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = C5CFC3851997077C00D1ED51;
 			remoteInfo = "cujs-runtime";
+		};
+		C5DCC72F19B59DB000AD4BA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C5F83B031969155100A381F3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C5F83B0A1969155100A381F3;
+			remoteInfo = cujs;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -206,6 +218,8 @@
 		C5DCC72719B593A100AD4BA9 /* libgtest.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgtest.0.dylib; path = ../../../usr/local/lib/libgtest.0.dylib; sourceTree = "<group>"; };
 		C5DCC72A19B5941E00AD4BA9 /* libgmock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgmock.a; path = ../../../usr/local/lib/libgmock.a; sourceTree = "<group>"; };
 		C5DCC72B19B5941E00AD4BA9 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = ../../../usr/local/lib/libgtest.a; sourceTree = "<group>"; };
+		C5DCC73219B59DF500AD4BA9 /* libLLVM-3.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libLLVM-3.4.dylib"; path = "../../../usr/local/lib/cujs-deps/libLLVM-3.4.dylib"; sourceTree = "<group>"; };
+		C5DCC73419B59E3600AD4BA9 /* libclang.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libclang.a; path = deps/llvm/lib/libclang.a; sourceTree = "<group>"; };
 		C5F471EC198337D200F72FAA /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		C5F83B0B1969155100A381F3 /* cujs */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cujs; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -241,6 +255,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5DCC73719B59E6200AD4BA9 /* libclang.dylib in Frameworks */,
+				C5DCC73319B59DF500AD4BA9 /* libLLVM-3.4.dylib in Frameworks */,
+				C5DCC73819B5A00300AD4BA9 /* libstdc++.6.0.9.dylib in Frameworks */,
 				C5DCC72C19B5941E00AD4BA9 /* libgmock.a in Frameworks */,
 				C5DCC72D19B5941E00AD4BA9 /* libgtest.a in Frameworks */,
 			);
@@ -373,6 +390,8 @@
 		C5686238197637B0001C8B45 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5DCC73419B59E3600AD4BA9 /* libclang.a */,
+				C5DCC73219B59DF500AD4BA9 /* libLLVM-3.4.dylib */,
 				C5DCC72A19B5941E00AD4BA9 /* libgmock.a */,
 				C5DCC72B19B5941E00AD4BA9 /* libgtest.a */,
 				C5DCC72619B593A100AD4BA9 /* libgmock.0.dylib */,
@@ -593,6 +612,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C5DCC73019B59DB000AD4BA9 /* PBXTargetDependency */,
 			);
 			name = "cujs-tests";
 			productName = "cujs-tests";
@@ -776,6 +796,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5DCC73119B59DC300AD4BA9 /* cujsutils.cpp in Sources */,
+				C5DCC72E19B59D9D00AD4BA9 /* cgclang.cpp in Sources */,
 				C5BFBEF019B5780800EDF6A5 /* main.cpp in Sources */,
 				C5BFBEFE19B5818900EDF6A5 /* test-cgclang.cpp in Sources */,
 			);
@@ -824,6 +846,11 @@
 			isa = PBXTargetDependency;
 			target = C5CFC3851997077C00D1ED51 /* cujs-runtime */;
 			targetProxy = C5CFC3951997077C00D1ED51 /* PBXContainerItemProxy */;
+		};
+		C5DCC73019B59DB000AD4BA9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C5F83B0A1969155100A381F3 /* cujs */;
+			targetProxy = C5DCC72F19B59DB000AD4BA9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -973,10 +1000,12 @@
 		C5BFBEF319B5780800EDF6A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
+				GCC_C_LANGUAGE_STANDARD = ansi;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
+					__STDC_CONSTANT_MACROS,
+					__STDC_LIMIT_MACROS,
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -984,7 +1013,16 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/local/include,
 				);
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				LD_RUNPATH_SEARCH_PATHS = "$(PROJECT_DIR)/deps/llvm/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/deps/llvm/include",
+					"$(SRCROOT)/deps/llvm/lib",
+					"$(SRCROOT)/deps/v8-trunk/xcodebuild/Release/",
+					/usr/local/lib,
+					"/usr/local/lib/cujs-deps",
+					/Users/jerrymarino/cupertinojs/deps/llvm/lib,
+				);
 				OTHER_CFLAGS = (
 					"-fno-strict-aliasing",
 					"-fno-exceptions",
@@ -997,22 +1035,43 @@
 					"-isystem",
 					"$(SRCROOT)/deps/v8-trunk/include",
 				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-U__GXX_EXPERIMENTAL_CXX0X__",
+					"$(OTHER_CFLAGS)",
+				);
+				OTHER_LDFLAGS = "-Wl,-search_paths_first,";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		C5BFBEF419B5780800EDF6A5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = ansi;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					__STDC_CONSTANT_MACROS,
+					__STDC_LIMIT_MACROS,
+				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/local/include,
 				);
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				LD_RUNPATH_SEARCH_PATHS = "$(PROJECT_DIR)/deps/llvm/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/deps/llvm/include",
+					"$(SRCROOT)/deps/llvm/lib",
+					"$(SRCROOT)/deps/v8-trunk/xcodebuild/Release/",
+					/usr/local/lib,
+					"/usr/local/lib/cujs-deps",
+					/Users/jerrymarino/cupertinojs/deps/llvm/lib,
+				);
 				OTHER_CFLAGS = (
 					"-fno-strict-aliasing",
 					"-fno-exceptions",
@@ -1025,7 +1084,13 @@
 					"-isystem",
 					"$(SRCROOT)/deps/v8-trunk/include",
 				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-U__GXX_EXPERIMENTAL_CXX0X__",
+					"$(OTHER_CFLAGS)",
+				);
+				OTHER_LDFLAGS = "-Wl,-search_paths_first,";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
@@ -1212,7 +1277,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INSTALL_PATH = /usr/local/bin;
-				LD_RUNPATH_SEARCH_PATHS = /usr/local/opt/llvm/lib/;
+				LD_RUNPATH_SEARCH_PATHS = "$(PROJECT_DIR)/deps/llvm/lib";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/deps/llvm/include",
@@ -1270,7 +1335,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INSTALL_PATH = /usr/local/bin;
-				LD_RUNPATH_SEARCH_PATHS = /usr/local/opt/llvm/lib/;
+				LD_RUNPATH_SEARCH_PATHS = "$(PROJECT_DIR)/deps/llvm/lib";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/deps/llvm/include",

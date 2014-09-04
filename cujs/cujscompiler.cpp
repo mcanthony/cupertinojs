@@ -27,6 +27,7 @@
 
 #include "cujsutils.h"
 #include "cgjs.h"
+#include "cujsenvironment.h"
 
 #include "cujscompiler.h"
 
@@ -35,12 +36,6 @@ using namespace cujs;
 
 const char *LLVM_DYLIB_PATH = "/usr/local/lib/cujs-deps";
 const char *LLVM_BIN_PATH = "/usr/local/bin/cujs-deps";
-
-const char *COMPILE_ENV_BUILD_DIR = "CUJS_ENV_BUILD_DIR";
-const char *COMPILE_ENV_CUJS_RUNTIME_PATH = "CUJS_ENV_RUNTIME";
-const char *COMPILE_ENV_DEBUG = "CUJS_ENV_DEBUG_COMPILER";
-const char *COMPILE_ENV_CREATE_EXECUTABLE = "CUJS_ENV_CREATE_EXECUTABLE";
-const char *COMPILE_ENV_MTRIPEL = "CUJS_ENV_MTRIPEL";
 
 #pragma mark - CompilerOptions
 
@@ -68,13 +63,30 @@ std::vector<std::string> ParseNames(int argc, const char * argv[]){
     return fnames;
 }
 
+std::string GetMTriple(){
+    auto explicitTriple = get_env_var(COMPILE_ENV_MTRIPEL);
+    if (explicitTriple.length()) {
+        return explicitTriple;
+    }
+   
+    auto platformName = get_env_var(COMPILE_ENV_PLATFORM_NAME);
+    auto archs = get_env_var(COMPILE_ENV_ARCHS);
+
+    if (archs.length() && platformName.length()) {
+        auto osName = CUJSIsIOS() ? "ios" : "osx";
+        return string_format("%s-apple-%s", archs.c_str(), osName);
+    }
+   
+    return "";
+}
+
 cujs::CompilerOptions::CompilerOptions(int argc, const char * argv[]){
     _names = ParseNames(argc, argv);
     _runtimePath = get_env_var(COMPILE_ENV_CUJS_RUNTIME_PATH);
     _buildDir = get_env_var(COMPILE_ENV_BUILD_DIR);
     _debug = get_env_var(COMPILE_ENV_DEBUG) == "true";
     _createExecutable = get_env_var(COMPILE_ENV_CREATE_EXECUTABLE) == "true";
-    _mTripel = get_env_var(COMPILE_ENV_MTRIPEL);
+    _mTripel = GetMTriple();
 }
 
 int cujs::CompilerOptions::validate(){
@@ -169,6 +181,42 @@ CompilationInfoWithZone *ProgramWithSourceHandle(v8::Handle<v8::String> source_h
     return info;
 }
 
+std::string CompileBitcodeCommandForOptionsFile(CompilerOptions options, std::string outFileName){
+ 
+    std::string compileCMD = "LD_LIBRARY_PATH=";
+    compileCMD += LLVM_DYLIB_PATH;
+    compileCMD += " ";
+    compileCMD += LLVM_BIN_PATH;
+    compileCMD += "/llc ";
+    if (options._mTripel.length()) {
+        compileCMD += "-mtriple ";
+        compileCMD += options._mTripel;
+    }
+    
+    compileCMD += " ";
+    compileCMD += outFileName;
+    return compileCMD;
+}
+
+std::string BitcodeWithModule(llvm::Module *module){
+    llvm::verifyModule(*module, llvm::PrintMessageAction);
+    llvm::PassManager PM;
+    std::string error;
+    std::string out;
+    
+    llvm::raw_string_ostream file(out);
+    PM.add(createPrintModulePass(&file));
+    PM.run(*module);
+    return out;
+}
+
+void WriteBitcodeToFile(std::string bitcode, std::string outFileName){
+    std::ofstream outfile;
+    outfile.open(outFileName);
+    outfile << bitcode;
+    outfile.close();
+}
+
 std::string cujs::Compiler::compileModule(v8::Isolate *isolate, std::string filePath){
     std::string buildDir = get_env_var(COMPILE_ENV_BUILD_DIR);
     std::string fileName = split(filePath, '/').back();
@@ -183,29 +231,12 @@ std::string cujs::Compiler::compileModule(v8::Isolate *isolate, std::string file
     if (_options->_debug) {
         codegen.Dump();
     }
-    
-    llvm::verifyModule(*codegen.module(), llvm::PrintMessageAction);
-    llvm::PassManager PM;
-    std::string error;
-    std::string out;
-    
-    llvm::raw_string_ostream file(out);
-    PM.add(createPrintModulePass(&file));
-    PM.run(*codegen.module());
-    
+   
     std::string outFileName = string_format("%s/%s.bc", buildDir.c_str(), moduleName.c_str());
-    
-    std::ofstream outfile;
-    outfile.open(outFileName);
-    outfile << out;
-    outfile.close();
-
-    //compile bitcode
-    system(string_format("LD_LIBRARY_PATH=%s %s/llc %s %s",
-                         LLVM_DYLIB_PATH,
-                         LLVM_BIN_PATH,
-                         _options->_mTripel.c_str(),
-                         outFileName.c_str()).c_str());
+   
+    auto bitcode = BitcodeWithModule(codegen.module());
+    WriteBitcodeToFile(bitcode, outFileName);
+    system(CompileBitcodeCommandForOptionsFile(*_options, outFileName).c_str());
     std::string llcOutput = string_format("%s/%s.s", buildDir.c_str(), moduleName.c_str());
     return llcOutput;
 }

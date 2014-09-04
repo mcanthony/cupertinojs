@@ -29,6 +29,23 @@
 		C59DA7D319AC4A4600E0BA27 /* cujsutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7F719969601007E3ED3 /* cujsutils.cpp */; };
 		C5A2162E19AB12AF00C9BDC6 /* libclang.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A2162C19AB12AF00C9BDC6 /* libclang.dylib */; };
 		C5A2162F19AB12AF00C9BDC6 /* libLLVM-3.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A2162D19AB12AF00C9BDC6 /* libLLVM-3.4.dylib */; };
+		C5A48BF419B6B66A00C51DC1 /* cujscompiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7F519969601007E3ED3 /* cujscompiler.cpp */; };
+		C5A48BF819B6B6B500C51DC1 /* libicudata.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59DA7AD19AB31AA00E0BA27 /* libicudata.a */; };
+		C5A48BF919B6B6B500C51DC1 /* libicui18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59DA7AF19AB31AA00E0BA27 /* libicui18n.a */; };
+		C5A48BFA19B6B6B500C51DC1 /* libicuuc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59DA7AE19AB31AA00E0BA27 /* libicuuc.a */; };
+		C5A48BFB19B6B6B500C51DC1 /* libv8_base.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59DA7B319AB31AA00E0BA27 /* libv8_base.a */; };
+		C5A48BFC19B6B6B600C51DC1 /* libv8_libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59DA7B019AB31AA00E0BA27 /* libv8_libbase.a */; };
+		C5A48BFD19B6B6B600C51DC1 /* libv8_libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59DA7B119AB31AA00E0BA27 /* libv8_libplatform.a */; };
+		C5A48BFE19B6B6B600C51DC1 /* libv8_nosnapshot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59DA7B219AB31AA00E0BA27 /* libv8_nosnapshot.a */; };
+		C5A48BFF19B6B6CC00C51DC1 /* cgjsruntime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7EE19969601007E3ED3 /* cgjsruntime.cpp */; };
+		C5A48C0019B6B6CC00C51DC1 /* cgjs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7F019969601007E3ED3 /* cgjs.cpp */; };
+		C5A48C0119B6B6CC00C51DC1 /* cujsllvmutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C58D9AFD19B0286900F89CED /* cujsllvmutils.cpp */; };
+		C5A48C0219B6B6CC00C51DC1 /* cgjsmacrovisitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7F219969601007E3ED3 /* cgjsmacrovisitor.cpp */; };
+		C5A48C0519B6C22300C51DC1 /* cujsenvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5A48C0319B6C22300C51DC1 /* cujsenvironment.cpp */; };
+		C5A48C0619B6C22300C51DC1 /* cujsenvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5A48C0319B6C22300C51DC1 /* cujsenvironment.cpp */; };
+		C5B40B1219B6B390002DA11C /* test-compiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5B40B1019B6B390002DA11C /* test-compiler.cpp */; };
+		C5BFBEF019B5780800EDF6A5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BFBEEF19B5780800EDF6A5 /* main.cpp */; };
+		C5BFBEFE19B5818900EDF6A5 /* test-cgclang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5BFBEFC19B5818900EDF6A5 /* test-cgclang.cpp */; };
 		C5CFC38D1997077C00D1ED51 /* cujs_runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CFC38C1997077C00D1ED51 /* cujs_runtime.m */; };
 		C5CFC3931997077C00D1ED51 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C568624A197637B0001C8B45 /* XCTest.framework */; };
 		C5CFC3941997077C00D1ED51 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5686239197637B0001C8B45 /* Cocoa.framework */; };
@@ -42,6 +59,13 @@
 		C5D6F7FF19969601007E3ED3 /* cujscompiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7F519969601007E3ED3 /* cujscompiler.cpp */; };
 		C5D6F80019969601007E3ED3 /* cujsutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7F719969601007E3ED3 /* cujsutils.cpp */; };
 		C5D6F80119969601007E3ED3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7F919969601007E3ED3 /* main.cpp */; };
+		C5DCC72C19B5941E00AD4BA9 /* libgmock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5DCC72A19B5941E00AD4BA9 /* libgmock.a */; };
+		C5DCC72D19B5941E00AD4BA9 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5DCC72B19B5941E00AD4BA9 /* libgtest.a */; };
+		C5DCC72E19B59D9D00AD4BA9 /* cgclang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7EC19969601007E3ED3 /* cgclang.cpp */; };
+		C5DCC73119B59DC300AD4BA9 /* cujsutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5D6F7F719969601007E3ED3 /* cujsutils.cpp */; };
+		C5DCC73319B59DF500AD4BA9 /* libLLVM-3.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5DCC73219B59DF500AD4BA9 /* libLLVM-3.4.dylib */; };
+		C5DCC73719B59E6200AD4BA9 /* libclang.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A2162C19AB12AF00C9BDC6 /* libclang.dylib */; };
+		C5DCC73819B5A00300AD4BA9 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C51CBC44196A815A0095CD4E /* libstdc++.6.0.9.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +97,13 @@
 			remoteGlobalIDString = C5CFC3851997077C00D1ED51;
 			remoteInfo = "cujs-runtime";
 		};
+		C5DCC72F19B59DB000AD4BA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C5F83B031969155100A381F3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C5F83B0A1969155100A381F3;
+			remoteInfo = cujs;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -86,6 +117,15 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C59DA7C219AC48C200E0BA27 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		C5BFBEEB19B5780800EDF6A5 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -163,6 +203,13 @@
 		C59DA7C619AC48C200E0BA27 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C5A2162C19AB12AF00C9BDC6 /* libclang.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libclang.dylib; path = deps/llvm/lib/libclang.dylib; sourceTree = "<group>"; };
 		C5A2162D19AB12AF00C9BDC6 /* libLLVM-3.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libLLVM-3.4.dylib"; path = "deps/llvm/lib/libLLVM-3.4.dylib"; sourceTree = "<group>"; };
+		C5A48C0319B6C22300C51DC1 /* cujsenvironment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cujsenvironment.cpp; sourceTree = "<group>"; };
+		C5A48C0419B6C22300C51DC1 /* cujsenvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cujsenvironment.h; sourceTree = "<group>"; };
+		C5B40B1019B6B390002DA11C /* test-compiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "test-compiler.cpp"; sourceTree = "<group>"; };
+		C5BFBEED19B5780800EDF6A5 /* cujs-tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "cujs-tests"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5BFBEEF19B5780800EDF6A5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		C5BFBEFA19B5807F00EDF6A5 /* gtest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gtest.framework; path = "../../../usr/local/lib/cujs-deps/gtest.framework"; sourceTree = "<group>"; };
+		C5BFBEFC19B5818900EDF6A5 /* test-cgclang.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "test-cgclang.cpp"; sourceTree = "<group>"; };
 		C5CFC3861997077C00D1ED51 /* libcujs-runtime.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libcujs-runtime.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5CFC38A1997077C00D1ED51 /* cujs-runtime-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cujs-runtime-Prefix.pch"; sourceTree = "<group>"; };
 		C5CFC38B1997077C00D1ED51 /* cujs_runtime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cujs_runtime.h; sourceTree = "<group>"; };
@@ -185,6 +232,12 @@
 		C5D6F7F719969601007E3ED3 /* cujsutils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cujsutils.cpp; path = cujs/cujsutils.cpp; sourceTree = SOURCE_ROOT; };
 		C5D6F7F819969601007E3ED3 /* cujsutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cujsutils.h; path = cujs/cujsutils.h; sourceTree = SOURCE_ROOT; };
 		C5D6F7F919969601007E3ED3 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = cujs/main.cpp; sourceTree = SOURCE_ROOT; };
+		C5DCC72619B593A100AD4BA9 /* libgmock.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgmock.0.dylib; path = ../../../usr/local/lib/libgmock.0.dylib; sourceTree = "<group>"; };
+		C5DCC72719B593A100AD4BA9 /* libgtest.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgtest.0.dylib; path = ../../../usr/local/lib/libgtest.0.dylib; sourceTree = "<group>"; };
+		C5DCC72A19B5941E00AD4BA9 /* libgmock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgmock.a; path = ../../../usr/local/lib/libgmock.a; sourceTree = "<group>"; };
+		C5DCC72B19B5941E00AD4BA9 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = ../../../usr/local/lib/libgtest.a; sourceTree = "<group>"; };
+		C5DCC73219B59DF500AD4BA9 /* libLLVM-3.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libLLVM-3.4.dylib"; path = "../../../usr/local/lib/cujs-deps/libLLVM-3.4.dylib"; sourceTree = "<group>"; };
+		C5DCC73419B59E3600AD4BA9 /* libclang.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libclang.a; path = deps/llvm/lib/libclang.a; sourceTree = "<group>"; };
 		C5F471EC198337D200F72FAA /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		C5F83B0B1969155100A381F3 /* cujs */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cujs; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -213,6 +266,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5BFBEEA19B5780800EDF6A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5A48BF819B6B6B500C51DC1 /* libicudata.a in Frameworks */,
+				C5A48BF919B6B6B500C51DC1 /* libicui18n.a in Frameworks */,
+				C5A48BFA19B6B6B500C51DC1 /* libicuuc.a in Frameworks */,
+				C5A48BFB19B6B6B500C51DC1 /* libv8_base.a in Frameworks */,
+				C5A48BFC19B6B6B600C51DC1 /* libv8_libbase.a in Frameworks */,
+				C5A48BFD19B6B6B600C51DC1 /* libv8_libplatform.a in Frameworks */,
+				C5A48BFE19B6B6B600C51DC1 /* libv8_nosnapshot.a in Frameworks */,
+				C5DCC73719B59E6200AD4BA9 /* libclang.dylib in Frameworks */,
+				C5DCC73319B59DF500AD4BA9 /* libLLVM-3.4.dylib in Frameworks */,
+				C5DCC73819B5A00300AD4BA9 /* libstdc++.6.0.9.dylib in Frameworks */,
+				C5DCC72C19B5941E00AD4BA9 /* libgmock.a in Frameworks */,
+				C5DCC72D19B5941E00AD4BA9 /* libgtest.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +415,13 @@
 		C5686238197637B0001C8B45 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C5DCC73419B59E3600AD4BA9 /* libclang.a */,
+				C5DCC73219B59DF500AD4BA9 /* libLLVM-3.4.dylib */,
+				C5DCC72A19B5941E00AD4BA9 /* libgmock.a */,
+				C5DCC72B19B5941E00AD4BA9 /* libgtest.a */,
+				C5DCC72619B593A100AD4BA9 /* libgmock.0.dylib */,
+				C5DCC72719B593A100AD4BA9 /* libgtest.0.dylib */,
+				C5BFBEFA19B5807F00EDF6A5 /* gtest.framework */,
 				C59DA7AD19AB31AA00E0BA27 /* libicudata.a */,
 				C59DA7AE19AB31AA00E0BA27 /* libicuuc.a */,
 				C59DA7AF19AB31AA00E0BA27 /* libicui18n.a */,
@@ -380,6 +459,16 @@
 				C59DA7C619AC48C200E0BA27 /* main.cpp */,
 			);
 			path = "cujs-compiler-integration-tests";
+			sourceTree = "<group>";
+		};
+		C5BFBEEE19B5780800EDF6A5 /* cujs-tests */ = {
+			isa = PBXGroup;
+			children = (
+				C5BFBEEF19B5780800EDF6A5 /* main.cpp */,
+				C5BFBEFC19B5818900EDF6A5 /* test-cgclang.cpp */,
+				C5B40B1019B6B390002DA11C /* test-compiler.cpp */,
+			);
+			path = "cujs-tests";
 			sourceTree = "<group>";
 		};
 		C5CFC3881997077C00D1ED51 /* cujs-runtime */ = {
@@ -429,6 +518,7 @@
 				C534CD0C199718F2007BE0A5 /* cujs-runtime-ios */,
 				C534CD1E199718F2007BE0A5 /* cujs-runtime-iosTests */,
 				C59DA7C519AC48C200E0BA27 /* cujs-compiler-integration-tests */,
+				C5BFBEEE19B5780800EDF6A5 /* cujs-tests */,
 				C5686238197637B0001C8B45 /* Frameworks */,
 				C5F83B0C1969155100A381F3 /* Products */,
 			);
@@ -443,6 +533,7 @@
 				C534CD0A199718F2007BE0A5 /* libcujs-runtime-ios.a */,
 				C534CD17199718F2007BE0A5 /* cujs-runtime-iosTests.xctest */,
 				C59DA7C419AC48C200E0BA27 /* cujs-compiler-integration-tests */,
+				C5BFBEED19B5780800EDF6A5 /* cujs-tests */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -462,6 +553,8 @@
 				C5D6F7F319969601007E3ED3 /* cgjsmacrovisitor.h */,
 				C5D6F7F419969601007E3ED3 /* cujs.1 */,
 				C5D6F7F519969601007E3ED3 /* cujscompiler.cpp */,
+				C5A48C0319B6C22300C51DC1 /* cujsenvironment.cpp */,
+				C5A48C0419B6C22300C51DC1 /* cujsenvironment.h */,
 				C5D6F7F619969601007E3ED3 /* cujscompiler.h */,
 				C5D6F7F719969601007E3ED3 /* cujsutils.cpp */,
 				C5D6F7F819969601007E3ED3 /* cujsutils.h */,
@@ -533,6 +626,25 @@
 			name = "cujs-compiler-integration-tests";
 			productName = "cujs-compiler-integration-tests";
 			productReference = C59DA7C419AC48C200E0BA27 /* cujs-compiler-integration-tests */;
+			productType = "com.apple.product-type.tool";
+		};
+		C5BFBEEC19B5780800EDF6A5 /* cujs-tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C5BFBEF819B5780800EDF6A5 /* Build configuration list for PBXNativeTarget "cujs-tests" */;
+			buildPhases = (
+				C5BFBEF919B57B8100EDF6A5 /* ShellScript */,
+				C5BFBEE919B5780800EDF6A5 /* Sources */,
+				C5BFBEEA19B5780800EDF6A5 /* Frameworks */,
+				C5BFBEEB19B5780800EDF6A5 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C5DCC73019B59DB000AD4BA9 /* PBXTargetDependency */,
+			);
+			name = "cujs-tests";
+			productName = "cujs-tests";
+			productReference = C5BFBEED19B5780800EDF6A5 /* cujs-tests */;
 			productType = "com.apple.product-type.tool";
 		};
 		C5CFC3851997077C00D1ED51 /* cujs-runtime */ = {
@@ -625,6 +737,7 @@
 				C534CD09199718F2007BE0A5 /* cujs-runtime-ios */,
 				C534CD16199718F2007BE0A5 /* cujs-runtime-iosTests */,
 				C59DA7C319AC48C200E0BA27 /* cujs-compiler-integration-tests */,
+				C5BFBEEC19B5780800EDF6A5 /* cujs-tests */,
 			);
 		};
 /* End PBXProject section */
@@ -665,6 +778,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C5BFBEF919B57B8100EDF6A5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#$PROJECT_DIR/cujs-tests/install-gtest-if-necessary.sh";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C534CD06199718F2007BE0A5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -691,6 +820,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C5BFBEE919B5780800EDF6A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5A48BFF19B6B6CC00C51DC1 /* cgjsruntime.cpp in Sources */,
+				C5A48C0019B6B6CC00C51DC1 /* cgjs.cpp in Sources */,
+				C5A48C0119B6B6CC00C51DC1 /* cujsllvmutils.cpp in Sources */,
+				C5A48C0219B6B6CC00C51DC1 /* cgjsmacrovisitor.cpp in Sources */,
+				C5A48C0619B6C22300C51DC1 /* cujsenvironment.cpp in Sources */,
+				C5A48BF419B6B66A00C51DC1 /* cujscompiler.cpp in Sources */,
+				C5DCC73119B59DC300AD4BA9 /* cujsutils.cpp in Sources */,
+				C5DCC72E19B59D9D00AD4BA9 /* cgclang.cpp in Sources */,
+				C5BFBEF019B5780800EDF6A5 /* main.cpp in Sources */,
+				C5BFBEFE19B5818900EDF6A5 /* test-cgclang.cpp in Sources */,
+				C5B40B1219B6B390002DA11C /* test-compiler.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C5CFC3821997077C00D1ED51 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -712,6 +859,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5D6F7FB19969601007E3ED3 /* cgclang.cpp in Sources */,
+				C5A48C0519B6C22300C51DC1 /* cujsenvironment.cpp in Sources */,
 				C5D6F7FF19969601007E3ED3 /* cujscompiler.cpp in Sources */,
 				C5D6F7FC19969601007E3ED3 /* cgjsruntime.cpp in Sources */,
 				C5D6F7FE19969601007E3ED3 /* cgjsmacrovisitor.cpp in Sources */,
@@ -734,6 +882,11 @@
 			isa = PBXTargetDependency;
 			target = C5CFC3851997077C00D1ED51 /* cujs-runtime */;
 			targetProxy = C5CFC3951997077C00D1ED51 /* PBXContainerItemProxy */;
+		};
+		C5DCC73019B59DB000AD4BA9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C5F83B0A1969155100A381F3 /* cujs */;
+			targetProxy = C5DCC72F19B59DB000AD4BA9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -775,9 +928,10 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e1fac12d-4b55-4e50-8b82-a9a770152941";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "x86_64 i386";
+				VALID_ARCHS = "x86_64 i386 arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -796,10 +950,11 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e1fac12d-4b55-4e50-8b82-a9a770152941";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "x86_64 i386";
+				VALID_ARCHS = "x86_64 i386 arm64 armv7 armv7s";
 			};
 			name = Release;
 		};
@@ -877,6 +1032,107 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "PROJECT_DIR=\\\"\"$PROJECT_DIR\"\\\"";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		C5BFBEF319B5780800EDF6A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
+				GCC_C_LANGUAGE_STANDARD = ansi;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					__STDC_CONSTANT_MACROS,
+					__STDC_LIMIT_MACROS,
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/include,
+				);
+				LD_RUNPATH_SEARCH_PATHS = "$(PROJECT_DIR)/deps/llvm/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/deps/llvm/include",
+					"$(SRCROOT)/deps/llvm/lib",
+					"$(SRCROOT)/deps/v8-trunk/xcodebuild/Release/",
+					/usr/local/lib,
+					"/usr/local/lib/cujs-deps",
+					/Users/jerrymarino/cupertinojs/deps/llvm/lib,
+					"/Users/jerrymarino/cupertinojs/deps/v8-trunk/xcodebuild/Release",
+				);
+				OTHER_CFLAGS = (
+					"-fno-strict-aliasing",
+					"-fno-exceptions",
+					"-isystem",
+					"$(SRCROOT)/deps/llvm/include",
+					"-isystem",
+					"$(SRCROOT)/deps/v8-trunk",
+					"-isystem",
+					"$(SRCROOT)/deps/v8-trunk/third_party/icu/source/common",
+					"-isystem",
+					"$(SRCROOT)/deps/v8-trunk/include",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-U__GXX_EXPERIMENTAL_CXX0X__",
+					"$(OTHER_CFLAGS)",
+				);
+				OTHER_LDFLAGS = "-Wl,-search_paths_first,";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		C5BFBEF419B5780800EDF6A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = ansi;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					__STDC_CONSTANT_MACROS,
+					__STDC_LIMIT_MACROS,
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/include,
+				);
+				LD_RUNPATH_SEARCH_PATHS = "$(PROJECT_DIR)/deps/llvm/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/deps/llvm/include",
+					"$(SRCROOT)/deps/llvm/lib",
+					"$(SRCROOT)/deps/v8-trunk/xcodebuild/Release/",
+					/usr/local/lib,
+					"/usr/local/lib/cujs-deps",
+					/Users/jerrymarino/cupertinojs/deps/llvm/lib,
+					"/Users/jerrymarino/cupertinojs/deps/v8-trunk/xcodebuild/Release",
+				);
+				OTHER_CFLAGS = (
+					"-fno-strict-aliasing",
+					"-fno-exceptions",
+					"-isystem",
+					"$(SRCROOT)/deps/llvm/include",
+					"-isystem",
+					"$(SRCROOT)/deps/v8-trunk",
+					"-isystem",
+					"$(SRCROOT)/deps/v8-trunk/third_party/icu/source/common",
+					"-isystem",
+					"$(SRCROOT)/deps/v8-trunk/include",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-U__GXX_EXPERIMENTAL_CXX0X__",
+					"$(OTHER_CFLAGS)",
+				);
+				OTHER_LDFLAGS = "-Wl,-search_paths_first,";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
@@ -1063,7 +1319,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INSTALL_PATH = /usr/local/bin;
-				LD_RUNPATH_SEARCH_PATHS = /usr/local/opt/llvm/lib/;
+				LD_RUNPATH_SEARCH_PATHS = "$(PROJECT_DIR)/deps/llvm/lib";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/deps/llvm/include",
@@ -1121,7 +1377,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INSTALL_PATH = /usr/local/bin;
-				LD_RUNPATH_SEARCH_PATHS = /usr/local/opt/llvm/lib/;
+				LD_RUNPATH_SEARCH_PATHS = "$(PROJECT_DIR)/deps/llvm/lib";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/deps/llvm/include",
@@ -1182,6 +1438,15 @@
 			buildConfigurations = (
 				C59DA7CA19AC48C200E0BA27 /* Debug */,
 				C59DA7CB19AC48C200E0BA27 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C5BFBEF819B5780800EDF6A5 /* Build configuration list for PBXNativeTarget "cujs-tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5BFBEF319B5780800EDF6A5 /* Debug */,
+				C5BFBEF419B5780800EDF6A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

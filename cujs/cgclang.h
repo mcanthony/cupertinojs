@@ -140,7 +140,12 @@ namespace cujs {
         ClangFile(std::string name);
         ~ClangFile();
     };
+    
+    struct TranslationUnitOptions {
+        std::string file;
+        std::vector<const char *>args;
+        static TranslationUnitOptions OptionsWithFile(std::string name);
+    };
 }
-
 
 #endif /* defined(__cujs__cgjsclang__) */

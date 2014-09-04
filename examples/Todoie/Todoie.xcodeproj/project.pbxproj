@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C521AA7F1991E4B300948556 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C521AA7E1991E4B300948556 /* Foundation.framework */; };
-		C521AA811991E4B300948556 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C521AA801991E4B300948556 /* CoreGraphics.framework */; };
-		C521AA831991E4B300948556 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C521AA821991E4B300948556 /* UIKit.framework */; };
 		C521AA891991E4B300948556 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C521AA871991E4B300948556 /* InfoPlist.strings */; };
 		C521AA911991E4B300948556 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C521AA901991E4B300948556 /* Images.xcassets */; };
 		C521AA981991E4B300948556 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C521AA971991E4B300948556 /* XCTest.framework */; };
@@ -17,8 +14,10 @@
 		C521AA9A1991E4B300948556 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C521AA821991E4B300948556 /* UIKit.framework */; };
 		C521AAA21991E4B300948556 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C521AAA01991E4B300948556 /* InfoPlist.strings */; };
 		C521AAA41991E4B300948556 /* TodoieTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C521AAA31991E4B300948556 /* TodoieTests.m */; };
-		C52DC1D51996AEEC004E0BE8 /* libcujs-runtime-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C52DC1D41996AEEC004E0BE8 /* libcujs-runtime-ios.a */; };
-		C56206BF1991F6B600646947 /* todoie.s in Sources */ = {isa = PBXBuildFile; fileRef = C56206BE1991F6B600646947 /* todoie.s */; };
+		C53E6F6119B6E68B00E67212 /* todoie.s in Sources */ = {isa = PBXBuildFile; fileRef = C53E6F6019B6E68B00E67212 /* todoie.s */; };
+		C5BEC77319B6F24F00ACCD6E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C521AA821991E4B300948556 /* UIKit.framework */; };
+		C5BEC77419B6F25300ACCD6E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C521AA801991E4B300948556 /* CoreGraphics.framework */; };
+		C5BEC77519B6F25C00ACCD6E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C521AA7E1991E4B300948556 /* Foundation.framework */; };
 		C5C6B8731995FCB600490AB5 /* UIKit+CUJS.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C6B8721995FCB600490AB5 /* UIKit+CUJS.m */; };
 /* End PBXBuildFile section */
 
@@ -29,13 +28,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = C521AA7A1991E4B300948556;
 			remoteInfo = Todoie;
-		};
-		C52DC1C21996A8B9004E0BE8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C521AA731991E4B300948556 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C578A6E5199347CA0071F353;
-			remoteInfo = CompileJS;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -57,6 +49,10 @@
 		C521AB671991E93200948556 /* libobjcjs-runtime-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libobjcjs-runtime-ios.a"; path = "../../build/Debug-iphoneos/libobjcjs-runtime-ios.a"; sourceTree = "<group>"; };
 		C52DC1D21996AED6004E0BE8 /* libcujs-runtime-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libcujs-runtime-ios.a"; path = "../../build/Debug-iphoneos/libcujs-runtime-ios.a"; sourceTree = "<group>"; };
 		C52DC1D41996AEEC004E0BE8 /* libcujs-runtime-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libcujs-runtime-ios.a"; path = "../../build/Debug-iphonesimulator/libcujs-runtime-ios.a"; sourceTree = "<group>"; };
+		C53E6F6019B6E68B00E67212 /* todoie.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = todoie.s; sourceTree = "<group>"; };
+		C53E6F6219B6EB9400E67212 /* libcujs-runtime-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libcujs-runtime-ios.a"; path = "../../build/Debug-iphoneos/libcujs-runtime-ios.a"; sourceTree = "<group>"; };
+		C53E6F6519B6EDE200E67212 /* libcujs-runtime-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libcujs-runtime-ios.a"; path = "../../build/Debug-iphoneos/libcujs-runtime-ios.a"; sourceTree = "<group>"; };
+		C53E6F6819B6EE9800E67212 /* libcujs-runtime-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libcujs-runtime-ios.a"; path = "../../build/Debug-iphoneos/libcujs-runtime-ios.a"; sourceTree = "<group>"; };
 		C56206B51991EA3E00646947 /* libobjcjs-runtime-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libobjcjs-runtime-ios.a"; path = "../../build/Debug-iphonesimulator/libobjcjs-runtime-ios.a"; sourceTree = "<group>"; };
 		C56206B81991EE9A00646947 /* todoie.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = todoie.js; sourceTree = "<group>"; };
 		C56206BD1991F64500646947 /* imports.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = imports.h; sourceTree = "<group>"; };
@@ -70,10 +66,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C52DC1D51996AEEC004E0BE8 /* libcujs-runtime-ios.a in Frameworks */,
-				C521AA811991E4B300948556 /* CoreGraphics.framework in Frameworks */,
-				C521AA831991E4B300948556 /* UIKit.framework in Frameworks */,
-				C521AA7F1991E4B300948556 /* Foundation.framework in Frameworks */,
+				C5BEC77419B6F25300ACCD6E /* CoreGraphics.framework in Frameworks */,
+				C5BEC77319B6F24F00ACCD6E /* UIKit.framework in Frameworks */,
+				C5BEC77519B6F25C00ACCD6E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +88,7 @@
 		C521AA721991E4B300948556 = {
 			isa = PBXGroup;
 			children = (
+				C53E6F6019B6E68B00E67212 /* todoie.s */,
 				C519D3DE1995E7CE0076D56A /* Makefile */,
 				C521AA841991E4B300948556 /* Todoie */,
 				C521AA9D1991E4B300948556 /* TodoieTests */,
@@ -113,6 +109,9 @@
 		C521AA7D1991E4B300948556 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C53E6F6819B6EE9800E67212 /* libcujs-runtime-ios.a */,
+				C53E6F6519B6EDE200E67212 /* libcujs-runtime-ios.a */,
+				C53E6F6219B6EB9400E67212 /* libcujs-runtime-ios.a */,
 				C52DC1D41996AEEC004E0BE8 /* libcujs-runtime-ios.a */,
 				C52DC1D21996AED6004E0BE8 /* libcujs-runtime-ios.a */,
 				C56206B51991EA3E00646947 /* libobjcjs-runtime-ios.a */,
@@ -192,14 +191,13 @@
 			buildConfigurationList = C521AAA71991E4B300948556 /* Build configuration list for PBXNativeTarget "Todoie" */;
 			buildPhases = (
 				C578A6EB199349740071F353 /* ShellScript */,
+				C521AA771991E4B300948556 /* Sources */,
 				C521AA781991E4B300948556 /* Frameworks */,
 				C521AA791991E4B300948556 /* Resources */,
-				C521AA771991E4B300948556 /* Sources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C52DC1C31996A8B9004E0BE8 /* PBXTargetDependency */,
 			);
 			name = Todoie;
 			productName = Todoie;
@@ -289,7 +287,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd $(dirname $(dirname ${PROJECT_DIR}))\n\n# Build the runtime\nxcodebuild -scheme cujs-runtime-ios -configuration \"Debug\" -sdk iphonesimulator\n\n\n";
+			shellScript = "# cujs root\ncd $(dirname $(dirname ${PROJECT_DIR}))\n\n# Build the runtime for this configuration\nxcodebuild -scheme cujs-runtime-ios -configuration ${CONFIGURATION} -sdk ${PLATFORM_NAME} -arch ${ARCHS}\n\ncp build/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}/libcujs-runtime-ios.a ${PROJECT_DIR}/build/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}\n\n# Build the JS\ncd ${PROJECT_DIR}\nmake\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -299,7 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5C6B8731995FCB600490AB5 /* UIKit+CUJS.m in Sources */,
-				C56206BF1991F6B600646947 /* todoie.s in Sources */,
+				C53E6F6119B6E68B00E67212 /* todoie.s in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,11 +316,6 @@
 			isa = PBXTargetDependency;
 			target = C521AA7A1991E4B300948556 /* Todoie */;
 			targetProxy = C521AA9B1991E4B300948556 /* PBXContainerItemProxy */;
-		};
-		C52DC1C31996A8B9004E0BE8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C578A6E5199347CA0071F353 /* CompileJS */;
-			targetProxy = C52DC1C21996A8B9004E0BE8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -434,16 +427,15 @@
 					"../../cujs-runtime",
 				);
 				INFOPLIST_FILE = "Todoie/Todoie-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"../../build/Debug-iphonesimulator",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
+					"-Lbuild/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"-lcujs-runtime-ios",
+					"-v",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e1fac12d-4b55-4e50-8b82-a9a770152941";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -464,16 +456,15 @@
 					"../../cujs-runtime",
 				);
 				INFOPLIST_FILE = "Todoie/Todoie-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"../../build/Debug-iphonesimulator",
-				);
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
+					"-Lbuild/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"-lcujs-runtime-ios",
+					"-v",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e1fac12d-4b55-4e50-8b82-a9a770152941";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

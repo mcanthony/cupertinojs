@@ -33,7 +33,7 @@ js-build:
 		
         # CUJS_ENV_BUILD_DIR is where the build products are installed
 		# for XCode projects, build to the source dir for now
-		@echo export CUJS_ENV_BUILD_DIR=$(SRCROOT) >> $(BUILD_SCRIPT)
+		@echo export CUJS_ENV_BUILD_DIR=$(SRCROOT)/Todoie >> $(BUILD_SCRIPT)
 
 		@echo $(CUJS) $(SOURCE_DIR)/$(SOURCES) >> $(BUILD_SCRIPT)
 		chmod +x $(BUILD_SCRIPT)

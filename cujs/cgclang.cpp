@@ -58,8 +58,6 @@ TranslationUnitOptions TranslationUnitOptions::OptionsWithFile(std::string name)
     args.push_back("objective-c");
 
     args.push_back("-arch");
-    args.push_back("-m32");
-
     auto arch = GetArch();
     if (arch.size()) {
         args.push_back(strdup(arch.data()));

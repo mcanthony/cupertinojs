@@ -155,7 +155,8 @@ int main(int argc, const char * argv[])
     setenv("CUJS_ENV_CREATE_EXECUTABLE", "true", 0);
     setenv("CUJS_ENV_BUILD_DIR", options.buildDir.c_str(), 0);
     setenv("CUJS_ENV_PROJECT_ROOT_DIR", options.testSourceDir.c_str(), 0);
-   
+    setenv("ARCHS", "x86_64", 0);
+
     std::cout << "Welcome to Cupertino.js! \n\n";
     std::cout << "Starting test run.. \n\n";
     

@@ -928,9 +928,10 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e1fac12d-4b55-4e50-8b82-a9a770152941";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "x86_64 i386";
+				VALID_ARCHS = "x86_64 i386 arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -949,10 +950,11 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e1fac12d-4b55-4e50-8b82-a9a770152941";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "x86_64 i386";
+				VALID_ARCHS = "x86_64 i386 arm64 armv7 armv7s";
 			};
 			name = Release;
 		};

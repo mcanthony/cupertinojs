@@ -811,26 +811,6 @@ void CGJS::VisitRegExpLiteral(RegExpLiteral *node) {
     UNIMPLEMENTED();
 }
 
-__attribute__((unused))
-llvm::Value *makeKeyNameValue(Expression *key, llvm::Module *module){
-    std::string keyStringValue;
-    if (key->IsPropertyName()) {
-        keyStringValue = cujs::stringFromV8AstRawString(((Literal *)key)->AsRawPropertyName());
-    }
-    
-    if(key->IsLiteral()){
-        auto literalKey = key->AsLiteral();
-        keyStringValue = std::to_string(literalKey->value()->Number());
-    }
-   
-    return NewLocalStringVar(keyStringValue, module);
-    
-    if (!keyStringValue.length()) {
-        UNIMPLEMENTED();
-    }
-    return NULL;
-}
-
 std::string makeKeyName(Expression *key, llvm::Module *module){
     if (key->IsPropertyName()) {
         return cujs::stringFromV8AstRawString(((Literal *)key)->AsRawPropertyName());
@@ -1176,6 +1156,8 @@ void CGJS::EmitStructLoadCast(std::string name, llvm::CallInst *objcPointerArgVa
 
     // Depending on the current ABI, structs will be returned on
     // different addresses and require a specifc msg send
+    // FIXME: not every platform uses objc_msgSend_stret ie some arms
+    // https://github.com/jerrymarino/cupertinojs/issues/6
     std::string msgSendFuncName = objCStructTy->size <= 8 ? "objc_msgSend" : "objc_msgSend_stret";
   
     Constant *msgSendFunc = ConstantExpr::getCast(Instruction::BitCast, _module->getFunction(msgSendFuncName), castedMsgSendPointerTy);

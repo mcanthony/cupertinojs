@@ -23,5 +23,5 @@ using namespace cujs;
 
 bool CUJSIsIOS(){
     auto platformName = get_env_var(COMPILE_ENV_PLATFORM_NAME);
-    return (platformName == "iphonesimulator");
+    return (platformName == "iphonesimulator" || platformName == "iphoneos");
 };

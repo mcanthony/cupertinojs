@@ -181,6 +181,42 @@ CompilationInfoWithZone *ProgramWithSourceHandle(v8::Handle<v8::String> source_h
     return info;
 }
 
+std::string CompileBitcodeCommandForOptionsFile(CompilerOptions options, std::string outFileName){
+ 
+    std::string compileCMD = "LD_LIBRARY_PATH=";
+    compileCMD += LLVM_DYLIB_PATH;
+    compileCMD += " ";
+    compileCMD += LLVM_BIN_PATH;
+    compileCMD += "/llc ";
+    if (options._mTripel.length()) {
+        compileCMD += "-mtriple ";
+        compileCMD += options._mTripel;
+    }
+    
+    compileCMD += " ";
+    compileCMD += outFileName;
+    return compileCMD;
+}
+
+std::string BitcodeWithModule(llvm::Module *module){
+    llvm::verifyModule(*module, llvm::PrintMessageAction);
+    llvm::PassManager PM;
+    std::string error;
+    std::string out;
+    
+    llvm::raw_string_ostream file(out);
+    PM.add(createPrintModulePass(&file));
+    PM.run(*module);
+    return out;
+}
+
+void WriteBitcodeToFile(std::string bitcode, std::string outFileName){
+    std::ofstream outfile;
+    outfile.open(outFileName);
+    outfile << bitcode;
+    outfile.close();
+}
+
 std::string cujs::Compiler::compileModule(v8::Isolate *isolate, std::string filePath){
     std::string buildDir = get_env_var(COMPILE_ENV_BUILD_DIR);
     std::string fileName = split(filePath, '/').back();
@@ -195,29 +231,12 @@ std::string cujs::Compiler::compileModule(v8::Isolate *isolate, std::string file
     if (_options->_debug) {
         codegen.Dump();
     }
-    
-    llvm::verifyModule(*codegen.module(), llvm::PrintMessageAction);
-    llvm::PassManager PM;
-    std::string error;
-    std::string out;
-    
-    llvm::raw_string_ostream file(out);
-    PM.add(createPrintModulePass(&file));
-    PM.run(*codegen.module());
-    
+   
     std::string outFileName = string_format("%s/%s.bc", buildDir.c_str(), moduleName.c_str());
-    
-    std::ofstream outfile;
-    outfile.open(outFileName);
-    outfile << out;
-    outfile.close();
-
-    //compile bitcode
-    system(string_format("LD_LIBRARY_PATH=%s %s/llc %s %s",
-                         LLVM_DYLIB_PATH,
-                         LLVM_BIN_PATH,
-                         _options->_mTripel.c_str(),
-                         outFileName.c_str()).c_str());
+   
+    auto bitcode = BitcodeWithModule(codegen.module());
+    WriteBitcodeToFile(bitcode, outFileName);
+    system(CompileBitcodeCommandForOptionsFile(*_options, outFileName).c_str());
     std::string llcOutput = string_format("%s/%s.s", buildDir.c_str(), moduleName.c_str());
     return llcOutput;
 }

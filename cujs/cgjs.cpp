@@ -414,7 +414,7 @@ void CGJS::EmitIfStatement(IfStatement *node, bool flag){
     _builder->SetInsertPoint(mergeBB);
 }
 
-//Continues & breaks must be nested inside of for loops
+// Continues must be nested inside of for loops or switch statements
 void CGJS::VisitContinueStatement(ContinueStatement *node) {
     auto currentBlock = _builder->GetInsertBlock();
     auto function = _builder->GetInsertBlock()->getParent();
@@ -438,23 +438,10 @@ void CGJS::VisitContinueStatement(ContinueStatement *node) {
     _builder->CreateBr(jumpTarget);
 }
 
+// Breaks must be nested inside of for loops or switch statements
+// on first visiting, the break target is set
 void CGJS::VisitBreakStatement(BreakStatement *node) {
-    auto currentBlock = _builder->GetInsertBlock();
-    auto function = _builder->GetInsertBlock()->getParent();
-    
-    bool start = false;
-    llvm::BasicBlock *jumpTarget = NULL;
-    for (llvm::Function::iterator BB = function->end(), e = function->begin(); BB != e; --BB){
-        if (BB == *currentBlock) {
-            start = true;
-        }
-        
-        if (start && BB->getName().startswith(llvm::StringRef("loop.after"))) {
-            jumpTarget = BB;
-            break;
-        }
-    }
-  
+    auto jumpTarget = _breakTargets.back();
     if (!jumpTarget) {
         assert(0 && "invalid break statement");
     }
@@ -505,18 +492,94 @@ void CGJS::VisitWithStatement(WithStatement *node) {
 #pragma mark - Switch
 
 void CGJS::VisitSwitchStatement(SwitchStatement *node) {
-    UNIMPLEMENTED();
+    auto function = _builder->GetInsertBlock()->getParent();
+
+    // Create all the conditions
+    ZoneList<CaseClause*>* cases = node->cases();
+    auto IB = _builder->GetInsertBlock();
+    auto afterBB = llvm::BasicBlock::Create(_module->getContext(), "switch.case.after", function);
+    _builder->SetInsertPoint(IB);
+    _breakTargets.push_back(afterBB);
+    
+    Visit(node->tag());
+    auto tag = PopContext();
+
+    llvm::BasicBlock *nextBB = NULL;
+    auto defaultBB = llvm::BasicBlock::Create(_module->getContext(), "switch.case.default");
+    
+    CaseClause *defaultClause = NULL;
+    for (int i = 0; i < cases->length(); i++){
+        auto clause = cases->at(i);
+        if (clause->is_default()) {
+            defaultClause = clause;
+        } else {
+            // If the condition is true execute the case statements
+            // otherwise go to next
+            Visit(clause->label());
+            auto caseTag = PopContext();
+            auto isEqual = _runtime->messageSend(tag, "cujs_isEqual:", caseTag);
+            auto cond = _builder->CreateICmpEQ(_runtime->boolValue(isEqual), ObjcNullPointer(), "switch.case.cmp");
+            auto caseBB = llvm::BasicBlock::Create(_module->getContext(), "switch.case");
+            nextBB = llvm::BasicBlock::Create(_module->getContext(), "switch.case.next");
+            _builder->CreateCondBr(cond, nextBB, caseBB);
+            function->getBasicBlockList().push_back(caseBB);
+           
+            //If there is no terminator slip into this case
+            if (!_builder->GetInsertBlock()->getTerminator()){
+                _builder->CreateBr(caseBB);
+            }
+            
+            _builder->SetInsertPoint(caseBB);
+            VisitStatements(clause->statements());
+            _builder->SetInsertPoint(caseBB);
+            
+            if (!caseBB->getTerminator()){
+                _builder->CreateBr(defaultBB);
+            }
+            
+            function->getBasicBlockList().push_back(nextBB);
+            _builder->SetInsertPoint(nextBB);
+        }
+    }
+    
+    if (defaultClause) {
+        if (!_builder->GetInsertBlock()->getTerminator()){
+            _builder->CreateBr(defaultBB);
+        }
+        
+        function->getBasicBlockList().push_back(defaultBB);
+        _builder->SetInsertPoint(defaultBB);
+        VisitStatements(defaultClause->statements());
+        _builder->SetInsertPoint(defaultBB);
+    }
+   
+    if (!_builder->GetInsertBlock()->getTerminator()){
+        _builder->CreateBr(afterBB);
+    }
+  
+    // Terminate any basic blocks that were added
+    // and don't break to default
+
+    llvm::Function::iterator BB = function->end();
+    while(--BB != *IB){
+        if (!BB->getName().startswith("switch") &&
+            !BB->getTerminator()){
+            BB->getInstList().push_back(llvm::BranchInst::Create(defaultBB));
+        }
+    }
+    
+    _builder->SetInsertPoint(afterBB);
+    _breakTargets.pop_back();
 }
 
-void CGJS::VisitCaseClause(CaseClause *clause) {
-    UNIMPLEMENTED();
-}
+void CGJS::VisitCaseClause(CaseClause *clause) { }
 
 #pragma mark - Loops
 
 void CGJS::VisitWhileStatement(WhileStatement *node) {
     auto function = _builder->GetInsertBlock()->getParent();
     auto afterBB = llvm::BasicBlock::Create(_module->getContext(), "loop.after", function);
+    _breakTargets.push_back(afterBB);
     auto loopBB = llvm::BasicBlock::Create(_module->getContext(), "loop.next", function);
     auto startBB = llvm::BasicBlock::Create(_module->getContext(), "loop.start", function);
 
@@ -537,11 +600,13 @@ void CGJS::VisitWhileStatement(WhileStatement *node) {
     _builder->CreateBr(startBB);
     
     _builder->SetInsertPoint(afterBB);
+    _breakTargets.pop_back();
 }
 
 void CGJS::VisitDoWhileStatement(DoWhileStatement *node) {
     auto function = _builder->GetInsertBlock()->getParent();
     auto afterBB = llvm::BasicBlock::Create(_module->getContext(), "loop.after", function);
+    _breakTargets.push_back(afterBB);
     auto loopBB = llvm::BasicBlock::Create(_module->getContext(), "loop.next", function);
 
     _builder->CreateBr(loopBB);
@@ -558,6 +623,7 @@ void CGJS::VisitDoWhileStatement(DoWhileStatement *node) {
     _builder->CreateCondBr(endCond, afterBB, loopBB);
    
     _builder->SetInsertPoint(afterBB);
+    _breakTargets.pop_back();
 }
 
 void CGJS::VisitForStatement(ForStatement *node) {
@@ -571,6 +637,7 @@ void CGJS::VisitForStatement(ForStatement *node) {
     auto function = _builder->GetInsertBlock()->getParent();
     auto loopBB = llvm::BasicBlock::Create(_module->getContext(), "loop", function);
     auto afterBB = llvm::BasicBlock::Create(_module->getContext(), "loop.after", function);
+    _breakTargets.push_back(afterBB);
     auto nextBB = llvm::BasicBlock::Create(_module->getContext(), "loop.next", function);
     auto startBB = llvm::BasicBlock::Create(_module->getContext(), "loop.start", function);
     
@@ -595,6 +662,7 @@ void CGJS::VisitForStatement(ForStatement *node) {
     _builder->CreateBr(loopBB);
     
     _builder->SetInsertPoint(afterBB);
+    _breakTargets.pop_back();
 }
 
 void CGJS::VisitForInStatement(ForInStatement *node) {

@@ -58,9 +58,10 @@ void CleanupBasicBlock(BasicBlock *BB){
         BB->eraseFromParent();
     }
 }
+#include <set>
 
 void cujs::FunctionCleanupInstructionsAfterTerminator(llvm::Function *function){
-    std::vector<llvm::BasicBlock *>removedSuccessorsOf;
+    std::set<llvm::BasicBlock *>removedSuccessorsOf;
 
     for (llvm::Function::iterator BB = function->begin(), BBE = function->end(); BB != BBE; ++BB){
         
@@ -71,24 +72,27 @@ void cujs::FunctionCleanupInstructionsAfterTerminator(llvm::Function *function){
                 (llvm::ReturnInst::classof(instruction) || llvm::BranchInst::classof(instruction))){
                 terminator = instruction;
             } else if (terminator) {
+               
                 //Remove all instructions after the terminator
+                //TODO: fix prototype kludge
                 while (instruction
                        && instruction != IE
                        && instruction != terminator
                        ) {
-                    if (llvm::BranchInst::classof(instruction)) {
-                        //Keep track of all the successors we removed a reference to
-                        auto numSuccessors =  ((llvm::BranchInst *)instruction)->getNumSuccessors();
-                        for (unsigned i = 0; i < numSuccessors; i++){
-                            auto nestedBB = ((llvm::BranchInst *)instruction)->getSuccessor(i);
-                            removedSuccessorsOf.push_back(nestedBB);
-                        }
-                    }
-                  
                     auto next = I++;
-                    auto shouldDropAllReferences = instruction->getNumUses() == 1;
                     
+                    auto shouldDropAllReferences = instruction->getNumUses() == 1;
                     if (shouldDropAllReferences) {
+                        if (llvm::BranchInst::classof(instruction)) {
+                            //Keep track of all the successors we removed a reference to
+                            auto numSuccessors =  ((llvm::BranchInst *)instruction)->getNumSuccessors();
+                            
+                            for (unsigned i = 0; i < numSuccessors; i++){
+                                auto nestedBB = ((llvm::BranchInst *)instruction)->getSuccessor(i);
+                                removedSuccessorsOf.insert(nestedBB);
+                            }
+                        }
+                        
                         instruction->replaceAllUsesWith(UndefValue::get(instruction->getType()));
                         BB->getInstList().pop_back();
                         instruction->dropAllReferences();
@@ -111,8 +115,8 @@ void cujs::FunctionCleanupInstructionsAfterTerminator(llvm::Function *function){
         }
     }
   
-    for (unsigned i = 0; i < removedSuccessorsOf.size(); i++) {
-        CleanupBasicBlock(removedSuccessorsOf[i]);
+    for (auto BBI = removedSuccessorsOf.begin(), BBE = removedSuccessorsOf.end(); BBI != BBE; ++BBI){
+        CleanupBasicBlock(*BBI);
     }
     
     //Remove any dead blocks

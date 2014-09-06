@@ -89,6 +89,11 @@
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
+            key = "ARCHS"
+            value = "x86_64"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
             key = "CUJS_ENV_BUILD_DIR"
             value = "${PROJECT_DIR}/examples/Todoie/build/Debug-iphonesimulator"
             isEnabled = "NO">

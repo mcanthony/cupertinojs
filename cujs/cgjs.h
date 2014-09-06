@@ -46,6 +46,7 @@ namespace cujs{
         llvm::Module *_module;
 
         std::vector<CGContext *> _contexts;
+        std::vector<llvm::BasicBlock *> _breakTargets;
         CGContext *_context;
         CGJSRuntime *_runtime;
         

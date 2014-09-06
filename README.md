@@ -22,7 +22,7 @@ var seven = 4 + 3
 ### Loop 
 ```javascript
 for (var i = 99; i > 0; i--){
-    NSLog("%@ bottles of beer on the wall.", i) 
+    console.log(i, " bottles of beer on the wall.") 
 }
 ```
 
@@ -37,7 +37,7 @@ function Todo(){
     this.message = null
 
     this.log = function(){
-        NSLog("%@", this.message)
+        console.log(this.message)
     }
 }
 ```
@@ -68,7 +68,7 @@ bottlesOnTheWall.lowercaseString
 //cast functions take the struct as argument and are named after the type or typedef
 var applicationFrame = CGRect(UIScreen.mainScreen.applicationFrame)
 
-NSLog("screen height %@", applicationFrame.size.height)
+console.log("screen height ", applicationFrame.size.height)
 ```
 
 ### Mutate structs
@@ -110,7 +110,7 @@ TodoListViewController.prototype.numberOfSectionsInTableView = function(tableVie
 function AppDelegate(){}
 
 function DidLaunch(application, options){
-    NSLog("Launched! %@", this)
+    console.log("Launched! ", this)
 }
 
 // Implement  -[AppDelegate application:didFinishLaunchingWithOptions:]
@@ -143,10 +143,8 @@ yet production ready.
 
 There several features not yet implemented including:
 
-- Switch statements
-- Unary operators
 - Repl
-- Standard lib (Strings, arrays, etc)
+- Standard lib (Strings, arrays, etc): partially done
 - Garbage collection: currently it uses manual retain/release/autorelease
 - Objective-C super
 - [ECMAScript

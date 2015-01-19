@@ -1179,7 +1179,10 @@ static Call::CallType GetCallType(Expression *call, Isolate *isolate) {
     return property != NULL ? Call::PROPERTY_CALL : Call::OTHER_CALL;
 }
 
-
+// Handle the user facing `objc_Struct` macro
+// This assumes an invocation like 'objc_struct(UIWindow.mainWindow.applicationFrame)'
+// and the msgSend is transformed into a struct msgSend so mainWindow.applicationFrame
+// is transformed to a proper msgSend_stret
 void CGJS::EmitStructLoadCall(Call *node) {
     ZoneList<Expression*> *args = node->arguments();
     auto argExpr = args->at(0);
@@ -1211,57 +1214,76 @@ void CGJS::EmitStructLoadCast(std::string name, llvm::CallInst *objcPointerArgVa
     // Type Definitions
     auto IB = _builder->GetInsertBlock();
     llvm::Type *StructTy = _module->getTypeByName(defName);
-   
-    // The type to cast msgSend to
+    PointerType *structReturnTyPointer = PointerType::get(StructTy, 0);
+    
+    // TODO[type coercion] introspect orginal value for proper arity and types,
+    // this only supports a msgSend with 2 arguments like (id self, SEL sel)
+    // The type to cast msgSend.
     std::vector<llvm::Type*>castedMsgSendArgumentTypes;
+    castedMsgSendArgumentTypes.push_back(structReturnTyPointer);
+    castedMsgSendArgumentTypes.push_back(ObjcPointerTy());
     castedMsgSendArgumentTypes.push_back(ObjcPointerTy());
     FunctionType *castedMsgSendFunctionTy = FunctionType::get(
-                                                StructTy,
-                                                castedMsgSendArgumentTypes,
-                                                true);
-
-    PointerType *castedMsgSendPointerTy = PointerType::get(castedMsgSendFunctionTy, 0);
-
+                                                              (llvm::Type *)llvm::Type::getVoidTy(_module->getContext()),
+                                                              castedMsgSendArgumentTypes,
+                                                              false
+                                                              );
+    
+    PointerType *castedMsgSendFuncPointerTy = PointerType::get(castedMsgSendFunctionTy, 0);
+    
     // Depending on the current ABI, structs will be returned on
-    // different addresses and require a specifc msg send
-    // FIXME: not every platform uses objc_msgSend_stret ie some arms
-    // https://github.com/jerrymarino/cupertinojs/issues/6
+    // different registers and require a specifc messenger.
+    // In some cases the messenger has different parameters and return type
+    // TODO: verify the calculation to determine messenger
     std::string msgSendFuncName = objCStructTy->size <= 8 ? "objc_msgSend" : "objc_msgSend_stret";
   
-    Constant *msgSendFunc = ConstantExpr::getCast(Instruction::BitCast, _module->getFunction(msgSendFuncName), castedMsgSendPointerTy);
-    AllocaInst *ptr_castedMsgSendFunc = _builder->CreateAlloca(castedMsgSendPointerTy);
+    Constant *msgSendFunc = ConstantExpr::getCast(Instruction::BitCast, _module->getFunction(msgSendFuncName), castedMsgSendFuncPointerTy);
+    AllocaInst *ptr_castedMsgSendFunc = _builder->CreateAlloca(castedMsgSendFuncPointerTy);
     _builder->CreateStore(msgSendFunc, ptr_castedMsgSendFunc);
 
     // Add the original value, which could only be derived from
     // an objc msg send and add them to the args of the new call
     std::vector<Value*> castedMsgSendArgs;
-    auto opers = objcPointerArgValue->getNumArgOperands();
-    for (unsigned i = 0; i < opers; i++) {
+    
+    AllocaInst *msgSendRetAlloca = _builder->CreateAlloca(structReturnTyPointer);
+    CastInst *msgSendRetAllocaCasted = new BitCastInst(msgSendRetAlloca, structReturnTyPointer, "", IB);
+    castedMsgSendArgs.push_back(msgSendRetAllocaCasted);
+
+    // TODO[type coercion] : this needs to handle all msgSend variants and correct type conversions
+    auto numArgs = objcPointerArgValue->getNumArgOperands();
+    for (unsigned i = 0; i < numArgs; i++) {
         llvm::Value *arg = objcPointerArgValue->getArgOperand(i);
         castedMsgSendArgs.push_back(arg);
     }
 
     //Remove the wrongly typed value
     objcPointerArgValue->eraseFromParent();
-   
-    _builder->CreateCall(_module->getFunction("NSLog"), _runtime->newString("Invoke struct casted msgSend"));
-    
+  
     //Call casted function
     auto castedMsgSend = _builder->CreateLoad(ptr_castedMsgSendFunc);
     CallInst *castedMsgSendCallResult = _builder->CreateCall(castedMsgSend, castedMsgSendArgs);
 
-    _builder->CreateCall(_module->getFunction("NSLog"), _runtime->newString("Did invoke struct casted msgSend"));
-  
-    AllocaInst *ptr_resultOfCastedCall = _builder->CreateAlloca(StructTy);
-    PointerType *PointerTy_18 = PointerType::get(StructTy, 0);
-    CastInst *ptr_42 = new BitCastInst(ptr_resultOfCastedCall, PointerTy_18, "", IB);
- 
-    _builder->CreateStore(castedMsgSendCallResult, ptr_resultOfCastedCall);
+    // LLVM needs explicit indication if an argument is returning a struct pointer
+    AttributeSet castedMsgSendCallAttributes;
+    {
+        SmallVector<AttributeSet, 4> attributes;
+        AttributeSet PAS;
+        {
+            AttrBuilder builder;
+            builder.addAttribute(Attribute::StructRet);
+            PAS = AttributeSet::get(_module->getContext(), 1U, builder);
+        }
+        
+        attributes.push_back(PAS);
+        castedMsgSendCallAttributes = AttributeSet::get(_module->getContext(), attributes);
+    }
+    castedMsgSendCallResult->setAttributes(castedMsgSendCallAttributes);
+    assert(!castedMsgSendCallResult->isTailCall());
     
     //Create a struct instance with this name
     std::vector<llvm::Value *> Args;
     Args.push_back(_runtime->newString(objCStructTy->name));
-    Args.push_back(ptr_42);
+    Args.push_back(msgSendRetAllocaCasted);
 
     auto function = _module->getFunction("objc_Struct");
     assert(function);

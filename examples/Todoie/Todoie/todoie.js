@@ -68,11 +68,13 @@ function OnLoad(){
     // Declare a function DidFinishLaunching
     function DidFinishLaunching(application, options){
         // Structs are accessed with the cast constructor
-        var applicationFrame = CGRect(UIScreen.mainScreen.bounds)
+        var mainScreen = UIScreen.mainScreen
+        // TODO[type coercion] this will be handled by the compiler
+        var applicationFrame = CGRect(mainScreen.bounds)
         
         // Once structs are casted to objects, they work just like regular JS objects
         NSLog("height %@", applicationFrame.size.height)
-        
+
         var window = UIWindow.alloc.init
         window.frame = applicationFrame
         window.makeKeyAndVisible()
@@ -106,6 +108,6 @@ function main(argc, argv){
     OnLoad()
     
     //A wrapper for UIApplicationMain with a autorelease pool
-    return UIApplication.applicationMainArgVName(argc, argv, "AppDelegate")
+    return UIApplication.applicationMainArgVName(null, null, "AppDelegate")
 }
 

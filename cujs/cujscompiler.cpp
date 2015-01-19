@@ -227,6 +227,7 @@ std::string cujs::Compiler::compileModule(v8::Isolate *isolate, std::string file
     auto module = ProgramWithSourceHandle(SourceHandleWithName(filePath.c_str(), isolate), *_options);
     
     CGJS codegen = CGJS(moduleName, module);
+    codegen.module()->setTargetTriple(GetMTriple());
     codegen.Codegen();
     if (_options->_debug) {
         codegen.Dump();

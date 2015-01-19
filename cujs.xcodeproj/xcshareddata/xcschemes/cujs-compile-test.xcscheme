@@ -60,23 +60,23 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "${PROJECT_DIR}/test-js/_test.js"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "${PROJECT_DIR}/examples/Todoie/Todoie/todoie.js"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "CUJS_ENV_BUILD_DIR"
             value = "${PROJECT_DIR}/${BUILT_PRODUCTS_DIR}"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "CUJS_ENV_DEBUG_COMPILER"
             value = "true"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "CUJS_ENV_RUNTIME"
@@ -86,27 +86,42 @@
          <EnvironmentVariable
             key = "CUJS_ENV_PROJECT_ROOT_DIR"
             value = "${PROJECT_DIR}/test-js"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "ARCHS"
             value = "x86_64"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "CUJS_ENV_BUILD_DIR"
             value = "${PROJECT_DIR}/examples/Todoie/build/Debug-iphonesimulator"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "CUJS_ENV_PROJECT_ROOT_DIR"
             value = "${PROJECT_DIR}/examples/Todoie/Todoie"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "CUJS_ENV_MTRIPEL"
             value = "-mtriple=i386-unknown-ios"
-            isEnabled = "NO">
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "ARCHS"
+            value = "i386"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "SDKROOT"
+            value = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "PLATFORM_NAME"
+            value = "iphonesimulator"
+            isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
       <AdditionalOptions>
